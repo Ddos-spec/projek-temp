@@ -1,0 +1,100 @@
+PROMPT UNTUK MANUS AI
+Judul Proyek: Pembuatan Website E-commerce "Raja Freeze Dried Food" dengan Next.js - Fokus pada Performa, SEO, dan Konversi
+
+Misi Utama Anda:
+Anda adalah seorang developer web profesional. Tugas Anda adalah membangun sebuah website statis premium untuk brand "Raja Freeze Dried Food" menggunakan Next.js. Tujuan utama website ini adalah sebagai "jembatan" yang mengarahkan pengunjung untuk melakukan pembelian di platform e-commerce (Shopee & Tokopedia) dan menyediakan informasi produk yang lengkap.
+
+Referensi Utama (Wajib Diikuti):
+Analisis dan replikasi struktur, konten, dan nuansa dari website: https://rajafreezdriedfood.com/
+
+Filosofi Desain & Prinsip Utama (Non-Negosiasi):
+
+Profesional & Bersih: Desain harus terlihat modern, bersih, dan terpercaya. Hindari elemen yang norak, warna yang terlalu mencolok, atau layout yang berantakan.
+
+Informatif & Jelas: Setiap informasi produk harus disajikan dengan jelas. Pengguna harus mudah mengerti keunggulan produk.
+
+Super Cepat: Performa adalah raja. Website harus terasa instan saat diakses. Tidak boleh ada kompromi pada kecepatan loading.
+
+Fokus pada Tujuan: Semua elemen desain dan konten harus mendukung satu tujuan: meyakinkan pengguna dan mengarahkan mereka untuk meng-klik tombol WhatsApp, Shopee, atau Tokopedia.
+
+Spesifikasi Teknis & Persyaratan Wajib:
+
+Framework: Gunakan Next.js versi terbaru dengan App Router.
+
+Styling: Gunakan Tailwind CSS.
+
+Skor Lighthouse Sempurna (100/100): Ini adalah syarat mutlak. Pastikan skor Performance, Accessibility, Best Practices, dan SEO mencapai 100.
+
+Developer Experience (DX) Sempurna: Proyek akhir harus bisa langsung dijalankan tanpa friksi. Pengguna akhir hanya akan melakukan npm install diikuti npm run dev. Pastikan tidak ada konflik dependensi, error konfigurasi, atau masalah lain yang merepotkan. Semua file konfigurasi (next.config.js, tailwind.config.js, postcss.config.js, dll.) harus sudah lengkap dan benar.
+
+Struktur & Halaman Website (4 Halaman):
+Anda harus membuat 4 halaman utama berdasarkan referensi:
+
+Halaman Beranda (/)
+
+Replikasi layout dari rajafreezdriedfood.com.
+
+Tonjolkan produk unggulan dengan gambar berkualitas tinggi namun sudah teroptimasi.
+
+Sertakan bagian "Mengapa Memilih Kami?", "Produk Terlaris", dan testimoni pelanggan.
+
+Pastikan ada Call-to-Action (CTA) yang jelas menuju halaman produk atau langsung ke marketplace.
+
+Halaman Blog (/blog)
+
+Buat halaman daftar artikel seperti referensi rajafreezdriedfood.com/blog/.
+
+Sediakan juga template untuk halaman detail artikel (contoh: /blog/[slug]).
+
+Fokus pada keterbacaan (tipografi yang nyaman, kontras yang baik).
+
+Halaman Tentang Kami (/about)
+
+Ceritakan kisah brand "Raja Freeze Dried Food" seperti di halaman rajafreezdriedfood.com/about/.
+
+Sertakan visi, misi, dan mungkin foto tim atau proses produksi (jika ada).
+
+Halaman Kontak (/contact)
+
+Buat halaman kontak sederhana seperti referensi rajafreezdriedfood.com/contact/.
+
+Sertakan alamat, email, nomor telepon, dan formulir kontak sederhana (jika diperlukan).
+
+Fitur Wajib:
+
+Widget Melayang (Floating Widgets):
+
+Harus ada 3 tombol melayang yang selalu terlihat di pojok kanan bawah layar.
+
+Tombol-tombol ini adalah untuk: WhatsApp, Shopee, dan Tokopedia.
+
+Buat berderet vertikal dengan desain yang ikonik dan mudah dikenali.
+
+Optimasi Gambar Tingkat Lanjut:
+
+Gunakan komponen <Image> dari Next.js untuk optimasi otomatis (lazy loading, format WebP, dll.).
+
+Jangan gunakan terlalu banyak gambar atau gambar dengan ukuran file yang terlalu besar untuk menjaga performa.
+
+SEO Mendalam:
+
+Gunakan Metadata API dari Next.js untuk mengatur title, description, dan keywords di setiap halaman.
+
+Implementasikan structured data (JSON-LD) dengan skema Product untuk halaman produk dan Organization untuk keseluruhan website.
+
+Buat file sitemap.xml dan robots.txt secara otomatis.
+
+Gunakan heading tags (H1, H2, H3) dengan benar dan pastikan konten mengandung keyword yang relevan untuk bersaing di Google.
+
+Peringatan Keras (Pencegahan Masalah):
+Proyek ini dinilai dari kesempurnaan teknis dan kemudahan penggunaannya. Anda HARUS memastikan hal-hal berikut untuk menghindari kegagalan:
+
+Struktur Folder yang Benar: Ikuti standar struktur proyek Next.js. Letakkan semua komponen di dalam folder src/components, halaman di src/app, dll.
+
+Tidak Ada File Hilang: Pastikan semua file yang di-import ada di lokasi yang benar. Jangan sampai ada error "Module not found".
+
+Konfigurasi Lengkap: Semua file konfigurasi yang dibutuhkan oleh Next.js dan Tailwind CSS harus ada dan sudah disetel dengan benar dari awal.
+
+Tidak Ada Konflik Versi: Pastikan semua versi library di package.json saling kompatibel untuk menghindari error ERESOLVE saat instalasi.
+
+Tujuan akhirnya adalah sebuah website yang tidak hanya indah secara visual, tetapi juga sebuah mesin marketing yang efisien, cepat, dan dicintai oleh Google. Kerjakan dengan detail dan profesional.
