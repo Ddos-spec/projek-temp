@@ -1,49 +1,48 @@
-import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 // Data produk sekarang ada link marketplace-nya
 const products = [
-  {
-    name: "Durian",
+  { 
+    name: "Durian", 
     description: "Snack yang terbuat dari buah durian yang di proses menggunakan teknologi vacuum freeze dried menjadikan solusi makan durian dengan tanpa bau yang menyengat tetapi dengan rasa yang sama dan nutrisinya yang terjaga.",
-    image: "/durian.jpeg", // Ganti dengan path gambar asli di folder /public
+    image: "/durian.jpg", // Ganti dengan path gambar asli di folder /public
     shopeeUrl: "#", // Ganti dengan link Shopee
     tokopediaUrl: "#", // Ganti dengan link Tokopedia
   },
-  {
-    name: "Manggis",
+  { 
+    name: "Manggis", 
     description: "Snack yang terbuat dari manggis asli yang terbaik, sudah di olah dengan menggunakan proses vacuum freeze dried tanpa merusak rasa dan nutrisi yang terkandung pada buah.",
-    image: "/manggis.jpeg",
+    image: "/manggis.jpg",
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  {
-    name: "Apel",
+  { 
+    name: "Apel", 
     description: "Snack yang terbuat dari apel asli terbaik yang diolah di proses menggunakan teknologi vacuum freeze dried, dengan proses ini nutrisi yang tersimpan pada buah tidak rusak dan rasa terjamin keasliannya.",
     image: "/apel.jpg",
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  {
-    name: "Mangga",
+  { 
+    name: "Mangga", 
     description: "Buah mangga asli yang terbaik dan manis diolah menggunakan teknologi vacuum freeze, kandungan serat dan nutrisi pun terjaga dan makanan menjadi mudah untuk dibawa.",
     image: "/mangga.jpg",
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  {
-    name: "pisang",
-    description: "pisang pilihan dengan rasa manis otentik, diolah sempurna untuk menjaga tekstur dan aroma khasnya. Pilihan tepat untuk camilan eksotis kapan saja.",
-    image: "/pisang.jpg",
+  { 
+    name: "Nangka", 
+    description: "Nangka pilihan dengan rasa manis otentik, diolah sempurna untuk menjaga tekstur dan aroma khasnya. Pilihan tepat untuk camilan eksotis kapan saja.",
+    image: "/nangka.jpg",
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  {
-    name: "manga jus bar",
-    description: "Nikmati manisnya manga jus bar asli dalam setiap gigitan renyah. Diproses dengan cermat untuk mengunci semua kebaikan buah tropis favorit Anda.",
-    image: "/manggajusbar.jpg",
+  { 
+    name: "Rambutan", 
+    description: "Nikmati manisnya rambutan asli dalam setiap gigitan renyah. Diproses dengan cermat untuk mengunci semua kebaikan buah tropis favorit Anda.",
+    image: "/rambutan.jpg",
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
@@ -57,14 +56,14 @@ const StarIcon = () => (
 );
 
 const ShopeeIcon = () => (
-    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M13.23 4.416c.35-.61.033-1.386-.677-1.593a1.437 1.437 0 00-1.593.677L3.54 18.284c-.35.61-.033 1.386.677 1.593.23.068.47.102.703.102a1.437 1.437 0 001.32-1.023l7.42-13.024a1.437 1.437 0 00-.933-1.923zM21.17 8.116a1.437 1.437 0 00-1.593.677L12.158 23.58c-.35.61-.033 1.386.677 1.593.23.068.47.102.703.102a1.437 1.437 0 001.32-1.023l7.42-13.024a1.437 1.437 0 00-.933-1.923zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 21.6c-5.302 0-9.6-4.298-9.6-9.6S6.698 2.4 12 2.4s9.6 4.298 9.6 9.6-4.298 9.6-9.6 9.6z" />
+    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512">
+        <path d="M256.1 2.2c-1.2 3.6-2.5 7.1-4.2 10.5-2.6 5.1-6.1 9.4-10.4 12.8-10.2 8.2-24.1 11.4-36.9 8.2-13.8-3.5-26.2-12.3-33.8-24.4-3.1-5-5.6-10.4-7.3-16-1-3.3-1.8-6.7-2.3-10.1-4.1 1.8-8.1 3.9-11.8 6.4-11.4 7.6-24.9 12.1-38.9 12.1-22.3 0-42.5-9.3-56.1-24.4-14-15.5-22.3-36.1-22.3-58.2 0-23.4 9.6-44.9 25.3-60.2 16-15.6 37.9-25 61.8-25 14.2 0 27.9 4.7 39.4 13.2 9.5 7.2 17.5 16.9 23.3 28.1 4.5 8.7 8 18.2 10.4 28.1 3.1 12.8 3.1 26.2 0 39.4-2.1 8.9-5.3 17.5-9.4 25.4-8.2 16-22.3 27.2-39.4 31.9-18.7 5.1-38.9 2-54-8.2-12.8-8.7-22.3-21.2-26.2-35.6-2.5-9.1-3.6-18.5-3.6-28.1 0-18.5 5.3-35.6 14.8-49.7 9.8-14.5 24.1-24.4 41.5-28.1 18.2-3.8 37.1-.5 52.9 8.2 15.2 8.4 27.4 21.2 34.8 36.9 4.2 8.9 7.3 18.7 9.4 29.1 2.3 11.6 2.3 23.6 0 35.6-2.3 11.8-6.9 22.8-13.2 32.4-1.2-3.6-2.5-7.1-4.2-10.5-2.6-5.1-6.1 9.4-10.4 12.8-10.2-8.2-24.1-11.4-36.9-8.2-13.8 3.5-26.2 12.3-33.8 24.4-3.1 5-5.6 10.4-7.3-16-1-3.3-1.8-6.7-2.3-10.1-4.1 1.8-8.1 3.9-11.8 6.4-11.4 7.6-24.9 12.1-38.9 12.1-22.3 0-42.5-9.3-56.1-24.4-14-15.5-22.3-36.1-22.3-58.2 0-23.4 9.6-44.9 25.3-60.2 16-15.6 37.9-25 61.8-25 14.2 0 27.9 4.7 39.4 13.2 9.5 7.2 17.5 16.9 23.3 28.1 4.5 8.7 8 18.2 10.4 28.1 3.1 12.8 3.1 26.2 0 39.4-2.1 8.9-5.3 17.5-9.4 25.4-8.2 16-22.3 27.2-39.4 31.9-18.7 5.1-38.9 2-54-8.2-12.8-8.7-22.3-21.2-26.2-35.6-2.5-9.1-3.6-18.5-3.6-28.1 0-18.5 5.3-35.6 14.8-49.7 9.8-14.5 24.1-24.4 41.5-28.1 18.2-3.8 37.1-.5 52.9 8.2 15.2 8.4 27.4 21.2 34.8 36.9 4.2 8.9 7.3 18.7 9.4 29.1 2.3 11.6 2.3 23.6 0 35.6-2.3 11.8-6.9 22.8-13.2 32.4z"/>
     </svg>
 );
 
 const TokopediaIcon = () => (
-    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v8h-2v-8zm0 10h2v2h-2v-2z" />
+    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512">
+        <path d="M256 8C119.03 8 8 119.03 8 256s111.03 248 248 248 248-111.03 248-248S392.97 8 256 8zm113.9 336.8c-2.3 2.3-5.4 3.5-8.5 3.5s-6.2-1.2-8.5-3.5L256 248.5l-96.9 96.3c-2.3 2.3-5.4 3.5-8.5 3.5s-6.2-1.2-8.5-3.5c-4.7-4.7-4.7-12.3 0-17l96.9-96.3-96.9-96.3c-4.7-4.7-4.7-12.3 0-17s12.3-4.7 17 0l96.9 96.3 96.9-96.3c4.7-4.7 12.3-4.7 17 0s4.7 12.3 0 17L273.5 256l96.9 96.3c4.7 4.5 4.7 12.3-.5 17z"/>
     </svg>
 );
 
@@ -93,7 +92,7 @@ export default function Home() {
                   Anda sedang mencari pesanan khusus untuk makanan Freeze Dried?
                 </p>
               </div>
-              <div className="w-full h-80 relative rounded-2xl overflow-hidden">
+              <div className="w-full h-80 relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image src="/fotoawalhero.png" alt="Produk Freeze Dried Unggulan" layout="fill" objectFit="cover" unoptimized />
               </div>
             </div>

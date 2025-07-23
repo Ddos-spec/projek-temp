@@ -1,9 +1,8 @@
-/** @type {import('next').NextConfig} */
+import type { NextConfig } from "next";
 
-// Konfigurasi ini PENTING untuk deploy ke GitHub Pages
 const isProd = process.env.NODE_ENV === 'production';
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   // Wajib 'export' untuk website statis
   output: 'export',
   
@@ -18,4 +17,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
