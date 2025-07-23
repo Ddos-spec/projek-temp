@@ -5,9 +5,16 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// INI BAGIAN PENTING: Kita definisikan basePath di sini
+const basePath = process.env.NODE_ENV === 'production' ? '/projek-temp' : '';
+
 export const metadata: Metadata = {
   title: "Raja Freeze Dried Food - Makanan Sehat Freeze Dried Terbaik",
   description: "Raja Freeze Dried Food menyediakan makanan sehat freeze dried berkualitas tinggi. Nikmati kelezatan dan nutrisi yang terjaga dengan teknologi freeze drying terdepan.",
+  // Ganti Favicon di sini
+  icons: {
+    icon: `${basePath}/astronot-food-logo.avif`,
+  },
   keywords: "freeze dried food, makanan sehat, snack sehat, freeze drying, makanan kering, nutrisi terjaga",
   authors: [{ name: "Raja Freeze Dried Food" }],
   openGraph: {
@@ -43,8 +50,8 @@ export default function RootLayout({
               "@type": "Organization",
               "name": "Raja Freeze Dried Food",
               "description": "Penyedia makanan sehat freeze dried berkualitas tinggi",
-              "url": "https://rajafreezdriedfood.com",
-              "logo": "https://rajafreezdriedfood.com/logo.png",
+              "url": "https://Ddos-spec.github.io/projek-temp",
+              "logo": `https://Ddos-spec.github.io/projek-temp/astronot-food-logo.avif`,
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+62-xxx-xxxx-xxxx",
@@ -63,4 +70,3 @@ export default function RootLayout({
     </html>
   );
 }
-
