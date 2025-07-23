@@ -26,7 +26,7 @@ const Header = () => {
                 <Image src={`${basePath}/astronot-food-logo.avif`} alt="Logo Astronot Food" layout="fill" objectFit="contain" unoptimized />
             </div>
             <span className="text-xl font-bold text-orange-600 hidden sm:block">
-              Astronot Food
+              Freeze Dried Indonesia
             </span>
           </Link>
 
