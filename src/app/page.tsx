@@ -2,81 +2,68 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
+// INI BAGIAN PENTING: Kita bikin variabel buat nentuin path dasar
+const basePath = process.env.NODE_ENV === 'production' ? '/projek-temp' : '';
+
 // Data produk sekarang ada link marketplace-nya
 const products = [
-  { 
-    name: "Durian", 
-    description: "Snack yang terbuat dari buah durian yang di proses menggunakan teknologi vacuum freeze dried menjadikan solusi makan durian dengan tanpa bau yang menyengat tetapi dengan rasa yang sama dan nutrisinya yang terjaga.",
-    image: "/durian.jpg", // Ganti dengan path gambar asli di folder /public
-    shopeeUrl: "#", // Ganti dengan link Shopee
-    tokopediaUrl: "#", // Ganti dengan link Tokopedia
-  },
-  { 
-    name: "Manggis", 
-    description: "Snack yang terbuat dari manggis asli yang terbaik, sudah di olah dengan menggunakan proses vacuum freeze dried tanpa merusak rasa dan nutrisi yang terkandung pada buah.",
-    image: "/manggis.jpg",
+  {
+    name: "Durian",
+    description: "Snack yang terbuat dari buah durian yang di proses menggunakan teknologi vacuum freeze dried...",
+    image: `${basePath}/durian.jpeg`, // Path gambar sekarang pake basePath
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  { 
-    name: "Apel", 
-    description: "Snack yang terbuat dari apel asli terbaik yang diolah di proses menggunakan teknologi vacuum freeze dried, dengan proses ini nutrisi yang tersimpan pada buah tidak rusak dan rasa terjamin keasliannya.",
-    image: "/apel.jpg",
+  {
+    name: "Manggis",
+    description: "Snack yang terbuat dari manggis asli yang terbaik, sudah di olah dengan menggunakan proses vacuum...",
+    image: `${basePath}/manggis.jpeg`, // Path gambar sekarang pake basePath
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  { 
-    name: "Mangga", 
-    description: "Buah mangga asli yang terbaik dan manis diolah menggunakan teknologi vacuum freeze, kandungan serat dan nutrisi pun terjaga dan makanan menjadi mudah untuk dibawa.",
-    image: "/mangga.jpg",
+  {
+    name: "Apel",
+    description: "Snack yang terbuat dari apel asli terbaik yang diolah di proses menggunakan teknologi vacuum freeze dried...",
+    image: `${basePath}/apel.jpg`, // Path gambar sekarang pake basePath
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  { 
-    name: "Nangka", 
-    description: "Nangka pilihan dengan rasa manis otentik, diolah sempurna untuk menjaga tekstur dan aroma khasnya. Pilihan tepat untuk camilan eksotis kapan saja.",
-    image: "/nangka.jpg",
+  {
+    name: "Mangga",
+    description: "Buah mangga asli yang terbaik dan manis diolah menggunakan teknologi vacuum freeze...",
+    image: `${basePath}/mangga.jpg`, // Path gambar sekarang pake basePath
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
-  { 
-    name: "Rambutan", 
-    description: "Nikmati manisnya rambutan asli dalam setiap gigitan renyah. Diproses dengan cermat untuk mengunci semua kebaikan buah tropis favorit Anda.",
-    image: "/rambutan.jpg",
+  {
+    name: "Nangka",
+    description: "Nangka pilihan dengan rasa manis otentik, diolah sempurna untuk menjaga tekstur dan aroma khasnya.",
+    image: `${basePath}/manggajusbar.jpg`, // Path gambar sekarang pake basePath
+    shopeeUrl: "#",
+    tokopediaUrl: "#",
+  },
+  {
+    name: "Pisang",
+    description: "Nikmati manisnya pisang asli dalam setiap gigitan renyah. Diproses dengan cermat untuk mengunci semua...",
+    image: `${basePath}/pisang.jpg`, // Path gambar sekarang pake basePath
     shopeeUrl: "#",
     tokopediaUrl: "#",
   },
 ];
 
 // --- Kumpulan Ikon ---
-const StarIcon = () => (
-  <svg className="w-6 h-6 text-orange-500 mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-  </svg>
-);
-
-const ShopeeIcon = () => (
-    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512">
-        <path d="M256.1 2.2c-1.2 3.6-2.5 7.1-4.2 10.5-2.6 5.1-6.1 9.4-10.4 12.8-10.2 8.2-24.1 11.4-36.9 8.2-13.8-3.5-26.2-12.3-33.8-24.4-3.1-5-5.6-10.4-7.3-16-1-3.3-1.8-6.7-2.3-10.1-4.1 1.8-8.1 3.9-11.8 6.4-11.4 7.6-24.9 12.1-38.9 12.1-22.3 0-42.5-9.3-56.1-24.4-14-15.5-22.3-36.1-22.3-58.2 0-23.4 9.6-44.9 25.3-60.2 16-15.6 37.9-25 61.8-25 14.2 0 27.9 4.7 39.4 13.2 9.5 7.2 17.5 16.9 23.3 28.1 4.5 8.7 8 18.2 10.4 28.1 3.1 12.8 3.1 26.2 0 39.4-2.1 8.9-5.3 17.5-9.4 25.4-8.2 16-22.3 27.2-39.4 31.9-18.7 5.1-38.9 2-54-8.2-12.8-8.7-22.3-21.2-26.2-35.6-2.5-9.1-3.6-18.5-3.6-28.1 0-18.5 5.3-35.6 14.8-49.7 9.8-14.5 24.1-24.4 41.5-28.1 18.2-3.8 37.1-.5 52.9 8.2 15.2 8.4 27.4 21.2 34.8 36.9 4.2 8.9 7.3 18.7 9.4 29.1 2.3 11.6 2.3 23.6 0 35.6-2.3 11.8-6.9 22.8-13.2 32.4-1.2-3.6-2.5-7.1-4.2-10.5-2.6-5.1-6.1 9.4-10.4 12.8-10.2-8.2-24.1-11.4-36.9-8.2-13.8 3.5-26.2 12.3-33.8 24.4-3.1 5-5.6 10.4-7.3-16-1-3.3-1.8-6.7-2.3-10.1-4.1 1.8-8.1 3.9-11.8 6.4-11.4 7.6-24.9 12.1-38.9 12.1-22.3 0-42.5-9.3-56.1-24.4-14-15.5-22.3-36.1-22.3-58.2 0-23.4 9.6-44.9 25.3-60.2 16-15.6 37.9-25 61.8-25 14.2 0 27.9 4.7 39.4 13.2 9.5 7.2 17.5 16.9 23.3 28.1 4.5 8.7 8 18.2 10.4 28.1 3.1 12.8 3.1 26.2 0 39.4-2.1 8.9-5.3 17.5-9.4 25.4-8.2 16-22.3 27.2-39.4 31.9-18.7 5.1-38.9 2-54-8.2-12.8-8.7-22.3-21.2-26.2-35.6-2.5-9.1-3.6-18.5-3.6-28.1 0-18.5 5.3-35.6 14.8-49.7 9.8-14.5 24.1-24.4 41.5-28.1 18.2-3.8 37.1-.5 52.9 8.2 15.2 8.4 27.4 21.2 34.8 36.9 4.2 8.9 7.3 18.7 9.4 29.1 2.3 11.6 2.3 23.6 0 35.6-2.3 11.8-6.9 22.8-13.2 32.4z"/>
-    </svg>
-);
-
-const TokopediaIcon = () => (
-    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512">
-        <path d="M256 8C119.03 8 8 119.03 8 256s111.03 248 248 248 248-111.03 248-248S392.97 8 256 8zm113.9 336.8c-2.3 2.3-5.4 3.5-8.5 3.5s-6.2-1.2-8.5-3.5L256 248.5l-96.9 96.3c-2.3 2.3-5.4 3.5-8.5 3.5s-6.2-1.2-8.5-3.5c-4.7-4.7-4.7-12.3 0-17l96.9-96.3-96.9-96.3c-4.7-4.7-4.7-12.3 0-17s12.3-4.7 17 0l96.9 96.3 96.9-96.3c4.7-4.7 12.3-4.7 17 0s4.7 12.3 0 17L273.5 256l96.9 96.3c4.7 4.5 4.7 12.3-.5 17z"/>
-    </svg>
-);
-
+const StarIcon = () => ( <svg className="w-6 h-6 text-orange-500 mr-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"> <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /> </svg> );
+const ShopeeIcon = () => ( <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512"> <path d="M256.1 2.2c-1.2 3.6-2.5 7.1-4.2 10.5-2.6 5.1-6.1 9.4-10.4 12.8-10.2 8.2-24.1 11.4-36.9 8.2-13.8-3.5-26.2-12.3-33.8-24.4-3.1-5-5.6-10.4-7.3-16-1-3.3-1.8-6.7-2.3-10.1-4.1 1.8-8.1 3.9-11.8 6.4-11.4 7.6-24.9 12.1-38.9 12.1-22.3 0-42.5-9.3-56.1-24.4-14-15.5-22.3-36.1-22.3-58.2 0-23.4 9.6-44.9 25.3-60.2 16-15.6 37.9-25 61.8-25 14.2 0 27.9 4.7 39.4 13.2 9.5 7.2 17.5 16.9 23.3 28.1 4.5 8.7 8 18.2 10.4 28.1 3.1 12.8 3.1 26.2 0 39.4-2.1 8.9-5.3 17.5-9.4 25.4-8.2 16-22.3 27.2-39.4 31.9-18.7 5.1-38.9 2-54-8.2-12.8-8.7-22.3-21.2-26.2-35.6-2.5-9.1-3.6-18.5-3.6-28.1 0-18.5 5.3-35.6 14.8-49.7 9.8-14.5 24.1-24.4 41.5-28.1 18.2-3.8 37.1-.5 52.9 8.2 15.2 8.4 27.4 21.2 34.8 36.9 4.2 8.9 7.3 18.7 9.4 29.1 2.3 11.6 2.3 23.6 0 35.6-2.3 11.8-6.9 22.8-13.2 32.4-1.2-3.6-2.5-7.1-4.2-10.5-2.6-5.1-6.1 9.4-10.4 12.8-10.2-8.2-24.1-11.4-36.9-8.2-13.8 3.5-26.2 12.3-33.8 24.4-3.1 5-5.6 10.4-7.3-16-1-3.3-1.8-6.7-2.3-10.1-4.1 1.8-8.1 3.9-11.8 6.4-11.4 7.6-24.9 12.1-38.9 12.1-22.3 0-42.5-9.3-56.1-24.4-14-15.5-22.3-36.1-22.3-58.2 0-23.4 9.6-44.9 25.3-60.2 16-15.6 37.9-25 61.8-25 14.2 0 27.9 4.7 39.4 13.2 9.5 7.2 17.5 16.9 23.3 28.1 4.5 8.7 8 18.2 10.4 28.1 3.1 12.8 3.1 26.2 0 39.4-2.1 8.9-5.3 17.5-9.4 25.4-8.2 16-22.3 27.2-39.4 31.9-18.7 5.1-38.9 2-54-8.2-12.8-8.7-22.3-21.2-26.2-35.6-2.5-9.1-3.6-18.5-3.6-28.1 0-18.5 5.3-35.6 14.8-49.7 9.8-14.5 24.1-24.4 41.5-28.1 18.2-3.8 37.1-.5 52.9 8.2 15.2 8.4 27.4 21.2 34.8 36.9 4.2 8.9 7.3 18.7 9.4 29.1 2.3 11.6 2.3 23.6 0 35.6-2.3 11.8-6.9 22.8-13.2 32.4z"/> </svg> );
+const TokopediaIcon = () => ( <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 512 512"> <path d="M256 8C119.03 8 8 119.03 8 256s111.03 248 248 248 248-111.03 248-248S392.97 8 256 8zm113.9 336.8c-2.3 2.3-5.4 3.5-8.5 3.5s-6.2-1.2-8.5-3.5L256 248.5l-96.9 96.3c-2.3 2.3-5.4 3.5-8.5 3.5s-6.2-1.2-8.5-3.5c-4.7-4.7-4.7-12.3 0-17l96.9-96.3-96.9-96.3c-4.7-4.7-4.7-12.3 0-17s12.3-4.7 17 0l96.9 96.3 96.9-96.3c4.7-4.7 12.3-4.7 17 0s4.7 12.3 0 17L273.5 256l96.9 96.3c4.7 4.5 4.7 12.3-.5 17z"/> </svg> );
 
 export default function Home() {
   return (
     <>
       <Header />
       <main className="bg-white text-gray-800">
-        {/* Hero Section */}
         <section
           className="relative py-24 sm:py-32 flex items-center"
-          style={{ backgroundImage: "url('/heroputih.png')", backgroundSize: 'cover', backgroundPosition: 'center' }}
+          style={{ backgroundImage: `url(${basePath}/heroputih.png)`, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
           <div className="absolute inset-0 bg-white bg-opacity-50"></div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,13 +80,12 @@ export default function Home() {
                 </p>
               </div>
               <div className="w-full h-80 relative rounded-2xl overflow-hidden shadow-2xl">
-                <Image src="/fotoawalhero.png" alt="Produk Freeze Dried Unggulan" layout="fill" objectFit="cover" unoptimized />
+                <Image src={`${basePath}/fotoawalhero.png`} alt="Produk Freeze Dried Unggulan" layout="fill" objectFit="cover" unoptimized />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Penjelasan "Apa itu Vacuum Freeze Dried?" */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-5xl mx-auto px-4 text-center">
              <h2 className="text-4xl md:text-5xl font-bold">Apa itu Vacuum Freeze Dried?</h2>
@@ -108,7 +94,6 @@ export default function Home() {
               Pengeringan beku adalah proses dehidrasi makanan beku di bawah vakum sehingga kadar air berubah langsung dari bentuk padat menjadi gas tanpa harus mengalami keadaan cair perantara melalui sublimasi. Dalam proses ini, makanan kering beku mempertahankan ukuran dan bentuk aslinya dengan kerusakan sel yang minimal. Menghilangkan kelembapan mencegah produk memburuk pada suhu kamar.
              </p>
           </div>
-          {/* Keunggulan Section */}
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="relative h-96 bg-gray-200 rounded-2xl flex items-center justify-center">
@@ -131,7 +116,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Product Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 text-center">
             <h2 className="text-4xl md:text-5xl font-bold">Product Olahan Kami</h2>
@@ -160,7 +144,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Mengapa Memilih Kami Section */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-5xl mx-auto px-4 text-center">
             <h2 className="text-4xl md:text-5xl font-bold">Mengapa Memilih Kami?</h2>
@@ -182,7 +165,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Ultimate CTA Section - Kursus */}
         <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 text-center bg-gray-800 text-white p-12 rounded-2xl">
             <h2 className="text-4xl font-extrabold">🚀 Buka Revolusi Bisnis Snack Sehat Anda!</h2>
@@ -202,7 +184,6 @@ export default function Home() {
             </a>
           </div>
         </section>
-
       </main>
       <Footer />
     </>
