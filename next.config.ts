@@ -1,31 +1,21 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
 
-/**
- * @type {import('next').NextConfig}
- */
+// Konfigurasi ini PENTING untuk deploy ke GitHub Pages
+const isProd = process.env.NODE_ENV === 'production';
 
-// Ganti 'nama-repo-kamu' dengan nama repository GitHub kamu
-const repoName = 'nama-repo-kamu';
-
-const isGithubActions = process.env.GITHUB_ACTIONS || false;
-
-let assetPrefix = '';
-let basePath = '';
-
-if (isGithubActions) {
-  // Atur assetPrefix dan basePath sesuai dengan nama repo kamu
-  assetPrefix = `/${repoName}/`;
-  basePath = `/${repoName}`;
-}
-
-
-const nextConfig: NextConfig = {
+const nextConfig = {
+  // Wajib 'export' untuk website statis
   output: 'export',
-  assetPrefix: assetPrefix,
-  basePath: basePath,
+  
+  // Memberi tahu Next.js nama sub-folder di GitHub Pages
+  // Ganti 'projek-temp' jika nama repo kamu berubah
+  basePath: isProd ? '/projek-temp' : '',
+  assetPrefix: isProd ? '/projek-temp/' : '',
+
+  // Menonaktifkan optimasi gambar bawaan Next.js yang butuh server
   images: {
-    unoptimized: true, // Wajib true untuk static export
+    unoptimized: true,
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
