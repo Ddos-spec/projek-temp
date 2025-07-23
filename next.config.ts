@@ -1,16 +1,31 @@
 import type { NextConfig } from "next";
 
+/**
+ * @type {import('next').NextConfig}
+ */
+
+// Ganti 'nama-repo-kamu' dengan nama repository GitHub kamu
+const repoName = 'nama-repo-kamu';
+
+const isGithubActions = process.env.GITHUB_ACTIONS || false;
+
+let assetPrefix = '';
+let basePath = '';
+
+if (isGithubActions) {
+  // Atur assetPrefix dan basePath sesuai dengan nama repo kamu
+  assetPrefix = `/${repoName}/`;
+  basePath = `/${repoName}`;
+}
+
+
 const nextConfig: NextConfig = {
-  output: 'export', // <--- TAMBAHIN INI DOANG
-  /* config options here */
+  output: 'export',
+  assetPrefix: assetPrefix,
+  basePath: basePath,
   images: {
-    formats: ['image/webp', 'image/avif'],
-    minimumCacheTTL: 60,
+    unoptimized: true, // Wajib true untuk static export
   },
-  compress: true,
-  poweredByHeader: false,
-  generateEtags: false,
-  trailingSlash: false,
 };
 
 export default nextConfig;
