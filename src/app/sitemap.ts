@@ -1,7 +1,11 @@
 import { MetadataRoute } from 'next'
 
+// Tambahkan baris ini juga
+export const dynamic = 'force-static'
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://rajafreezdriedfood.com'
+  // Ganti baseUrl sesuai dengan alamat GitHub Pages lo
+  const baseUrl = 'https://Ddos-spec.github.io/projek-temp'
 
   return [
     {
@@ -30,4 +34,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 }
-
