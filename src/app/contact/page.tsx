@@ -1,3 +1,4 @@
+// app/kontak/page.tsx (atau sesuai path file lu)
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -35,7 +36,6 @@ export default function ContactPage() {
                 <h2 className="text-3xl font-bold text-gray-900 mb-8">
                   Informasi Kontak
                 </h2>
-                
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <div className="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
@@ -50,7 +50,6 @@ export default function ContactPage() {
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-start">
                     <div className="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                       <span className="text-xl">📞</span>
@@ -64,7 +63,6 @@ export default function ContactPage() {
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-start">
                     <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                       <span className="text-xl">✉️</span>
@@ -78,7 +76,6 @@ export default function ContactPage() {
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-start">
                     <div className="bg-yellow-100 w-12 h-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                       <span className="text-xl">🕒</span>
@@ -127,169 +124,69 @@ export default function ContactPage() {
                     </a>
                   </div>
                 </div>
+
+                {/* Call to Action - WhatsApp */}
+                <div className="mt-12 text-center">
+                  <a
+                    href="https://wa.me/6281234567890?text=Halo%20Raja%20Freeze%20Dried%20Food,%20saya%20ingin%20menghubungi%20Anda"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-green-700 transition-colors duration-200 inline-block"
+                  >
+                    Hubungi Kami via WhatsApp
+                  </a>
+                  <p className="text-sm text-gray-600 mt-4">
+                    Klik tombol di atas untuk terhubung langsung dengan kami via WhatsApp.
+                  </p>
+                </div>
               </div>
 
-              {/* Contact Form */}
-              <div className="bg-gray-50 rounded-2xl p-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">
-                  Kirim Pesan
-                </h2>
-                
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                        Nama Depan
-                      </label>
-                      <input
-                        type="text"
-                        id="firstName"
-                        name="firstName"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        placeholder="Masukkan nama depan"
-                      />
+              {/* FAQ Section - Dipindah ke bawah agar seimbang */}
+              <div>
+                <div className="bg-gray-50 rounded-2xl p-8 h-full">
+                  <h2 className="text-3xl font-bold text-gray-900 mb-8">
+                    Pertanyaan yang Sering Diajukan
+                  </h2>
+                  <div className="space-y-6">
+                    <div className="bg-white rounded-lg p-6 shadow-md">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                        Apa itu teknologi freeze drying?
+                      </h3>
+                      <p className="text-gray-600">
+                        Freeze drying adalah proses pengawetan makanan yang menghilangkan air melalui 
+                        sublimasi (perubahan langsung dari es menjadi uap) pada suhu rendah dan tekanan vakum, 
+                        sehingga nutrisi dan rasa makanan tetap terjaga.
+                      </p>
                     </div>
-                    <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                        Nama Belakang
-                      </label>
-                      <input
-                        type="text"
-                        id="lastName"
-                        name="lastName"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        placeholder="Masukkan nama belakang"
-                      />
+                    <div className="bg-white rounded-lg p-6 shadow-md">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                        Berapa lama durasi kursus freeze drying?
+                      </h3>
+                      <p className="text-gray-600">
+                        Kursus kami berlangsung selama 3 hari dengan total 24 jam pembelajaran, 
+                        mencakup teori, praktik langsung, dan sesi konsultasi bisnis.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg p-6 shadow-md">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                        Apakah tersedia sertifikat setelah menyelesaikan kursus?
+                      </h3>
+                      <p className="text-gray-600">
+                        Ya, setiap peserta yang menyelesaikan kursus akan mendapatkan sertifikat 
+                        resmi dari Raja Freeze Dried Food yang dapat digunakan untuk keperluan bisnis.
+                      </p>
+                    </div>
+                    <div className="bg-white rounded-lg p-6 shadow-md">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                        Bagaimana cara memesan produk freeze dried?
+                      </h3>
+                      <p className="text-gray-600">
+                        Anda dapat memesan produk kami melalui marketplace resmi di Shopee dan Tokopedia, 
+                        atau langsung menghubungi kami via WhatsApp untuk pemesanan dalam jumlah besar.
+                      </p>
                     </div>
                   </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="nama@email.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Nomor Telepon
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="+62 812-3456-7890"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                      Subjek
-                    </label>
-                    <select
-                      id="subject"
-                      name="subject"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    >
-                      <option value="">Pilih subjek</option>
-                      <option value="kursus">Informasi Kursus</option>
-                      <option value="produk">Informasi Produk</option>
-                      <option value="kerjasama">Kerjasama Bisnis</option>
-                      <option value="lainnya">Lainnya</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Pesan
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={6}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                      placeholder="Tulis pesan Anda di sini..."
-                    ></textarea>
-                  </div>
-
-                  <div className="text-center">
-                    <p className="text-sm text-gray-600 mb-4">
-                      Untuk respon yang lebih cepat, silakan hubungi kami langsung via WhatsApp
-                    </p>
-                    <a
-                      href="https://wa.me/6281234567890?text=Halo%20Raja%20Freeze%20Dried%20Food,%20saya%20ingin%20mengirim%20pesan%20melalui%20website"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bg-green-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-green-700 transition-colors duration-200 inline-block"
-                    >
-                      Kirim via WhatsApp
-                    </a>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Pertanyaan yang Sering Diajukan
-              </h2>
-              <p className="text-xl text-gray-600">
-                Temukan jawaban untuk pertanyaan umum tentang produk dan layanan kami
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Apa itu teknologi freeze drying?
-                </h3>
-                <p className="text-gray-600">
-                  Freeze drying adalah proses pengawetan makanan yang menghilangkan air melalui 
-                  sublimasi (perubahan langsung dari es menjadi uap) pada suhu rendah dan tekanan vakum, 
-                  sehingga nutrisi dan rasa makanan tetap terjaga.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Berapa lama durasi kursus freeze drying?
-                </h3>
-                <p className="text-gray-600">
-                  Kursus kami berlangsung selama 3 hari dengan total 24 jam pembelajaran, 
-                  mencakup teori, praktik langsung, dan sesi konsultasi bisnis.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Apakah tersedia sertifikat setelah menyelesaikan kursus?
-                </h3>
-                <p className="text-gray-600">
-                  Ya, setiap peserta yang menyelesaikan kursus akan mendapatkan sertifikat 
-                  resmi dari Raja Freeze Dried Food yang dapat digunakan untuk keperluan bisnis.
-                </p>
-              </div>
-
-              <div className="bg-white rounded-lg p-6 shadow-md">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  Bagaimana cara memesan produk freeze dried?
-                </h3>
-                <p className="text-gray-600">
-                  Anda dapat memesan produk kami melalui marketplace resmi di Shopee dan Tokopedia, 
-                  atau langsung menghubungi kami via WhatsApp untuk pemesanan dalam jumlah besar.
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -306,7 +203,6 @@ export default function ContactPage() {
                 Kunjungi fasilitas kami untuk melihat langsung teknologi freeze drying terdepan
               </p>
             </div>
-
             <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center">
               <div className="text-center">
                 <div className="text-6xl mb-4">🗺️</div>
@@ -332,4 +228,3 @@ export default function ContactPage() {
     </>
   );
 }
-

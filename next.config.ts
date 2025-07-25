@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 
-const isProd = process.env.NODE_ENV === 'production';
-
-// Otomatis mengambil nama repo dari environment GitHub
-const repo = isProd ? process.env.GITHUB_REPOSITORY?.split('/')[1] || 'projek-temp' : '';
-
 const nextConfig = {
+  // output: 'export' WAJIB ADA buat static export
   output: 'export',
-  assetPrefix: isProd ? `/${repo}/` : '',
-  basePath: isProd ? `/${repo}` : '',
+  
+  // Kosongin aja karena kita deploy ke root domain (alamat utama), bukan sub-folder
+  assetPrefix: '',
+  basePath: '',
+
+  // Biarin aja, ini buat optimasi gambar di static export
   images: {
     unoptimized: true,
   },

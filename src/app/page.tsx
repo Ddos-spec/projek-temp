@@ -1,25 +1,25 @@
 "use client"; // Wajib ada karena kita pake slider interaktif (useState)
-
 import { useState, useEffect } from 'react';
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const basePath = process.env.NODE_ENV === 'production' ? '/projek-temp' : '';
+// HAPUS basePath
+// const basePath = process.env.NODE_ENV === 'production' ? '/projek-temp' : '';
 
 const products = [
-  { name: "Durian", description: "Snack yang terbuat dari buah durian asli, diolah dengan teknologi canggih untuk menjaga rasa otentik dan nutrisi alaminya.", image: `${basePath}/durian.webp`, shopeeUrl: "#", tokopediaUrl: "#" },
-  { name: "Manggis", description: "Nikmati kelezatan manggis dalam bentuk keripik renyah. Penuh antioksidan dan rasa manis yang khas.", image: `${basePath}/manggis.webp`, shopeeUrl: "#", tokopediaUrl: "#" },
-  { name: "Apel", description: "Keripik apel renyah yang mempertahankan semua kebaikan buah apel segar. Camilan sehat tanpa rasa bersalah.", image: `${basePath}/apel.webp`, shopeeUrl: "#", tokopediaUrl: "#" },
-  { name: "Mangga", description: "Rasa manis mangga tropis yang intens dalam setiap gigitan. Sumber energi alami yang praktis dibawa.", image: `${basePath}/mangga.webp`, shopeeUrl: "#", tokopediaUrl: "#" },
-  { name: "Jus Bar Mangga", description: "Nangka pilihan dengan rasa manis otentik, diolah sempurna untuk menjaga tekstur dan aroma khasnya.", image: `${basePath}/manggajusbar.webp`, shopeeUrl: "#", tokopediaUrl: "#" },
-  { name: "Pisang", description: "Manisnya pisang asli dalam setiap gigitan renyah. Diproses dengan cermat untuk mengunci semua kebaikan buah.", image: `${basePath}/pisang.webp`, shopeeUrl: "#", tokopediaUrl: "#" },
+  { name: "Durian", description: "Snack yang terbuat dari buah durian asli, diolah dengan teknologi canggih untuk menjaga rasa otentik dan nutrisi alaminya.", image: '/durian.webp', shopeeUrl: "#", tokopediaUrl: "#" },
+  { name: "Manggis", description: "Nikmati kelezatan manggis dalam bentuk keripik renyah. Penuh antioksidan dan rasa manis yang khas.", image: '/manggis.webp', shopeeUrl: "#", tokopediaUrl: "#" },
+  { name: "Apel", description: "Keripik apel renyah yang mempertahankan semua kebaikan buah apel segar. Camilan sehat tanpa rasa bersalah.", image: '/apel.webp', shopeeUrl: "#", tokopediaUrl: "#" },
+  { name: "Mangga", description: "Rasa manis mangga tropis yang intens dalam setiap gigitan. Sumber energi alami yang praktis dibawa.", image: '/mangga.webp', shopeeUrl: "#", tokopediaUrl: "#" },
+  { name: "Jus Bar Mangga", description: "Nangka pilihan dengan rasa manis otentik, diolah sempurna untuk menjaga tekstur dan aroma khasnya.", image: '/manggajusbar.webp', shopeeUrl: "#", tokopediaUrl: "#" },
+  { name: "Pisang", description: "Manisnya pisang asli dalam setiap gigitan renyah. Diproses dengan cermat untuk mengunci semua kebaikan buah.", image: '/pisang.webp', shopeeUrl: "#", tokopediaUrl: "#" },
 ];
 
 const sliderImages = [
-    `${basePath}/slider1.webp`,
-    `${basePath}/slider2.webp`,
-    `${basePath}/slider3.webp`,
+    '/slider1.webp',
+    '/slider2.webp',
+    '/slider3.webp',
 ];
 
 // --- Kumpulan Ikon ---
@@ -58,7 +58,8 @@ export default function Home() {
                 </p>
               </div>
               <div className="w-full h-80 relative rounded-2xl overflow-hidden shadow-2xl">
-                <Image src={`${basePath}/fotoawalhero.webp`} alt="Produk Freeze Dried Unggulan" layout="fill" objectFit="cover" unoptimized />
+                {/* HAPUS basePath dari sini */}
+                <Image src="/fotoawalhero.webp" alt="Produk Freeze Dried Unggulan" layout="fill" objectFit="cover" unoptimized />
               </div>
             </div>
           </div>
@@ -79,6 +80,7 @@ export default function Home() {
               <div className="relative h-96 rounded-2xl overflow-hidden shadow-lg">
                  {sliderImages.map((src, index) => (
                     <div key={src} className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
+                        {/* HAPUS basePath dari sini */}
                         <Image src={src} alt={`Slider Image ${index + 1}`} layout="fill" objectFit="cover" unoptimized />
                     </div>
                  ))}
@@ -109,6 +111,7 @@ export default function Home() {
               {products.map((product) => (
                 <div key={product.name} className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-lg transform hover:-translate-y-2 transition-transform duration-300 flex flex-col">
                   <div className="relative w-full h-64">
+                    {/* HAPUS basePath dari sini */}
                     <Image src={product.image} alt={`Gambar ${product.name}`} layout="fill" objectFit="cover" unoptimized />
                   </div>
                   <div className="p-6 text-left flex-grow flex flex-col">
@@ -171,7 +174,6 @@ export default function Home() {
             </a>
           </div>
         </section>
-
       </main>
       <Footer />
     </>

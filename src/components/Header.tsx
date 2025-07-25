@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-const basePath = process.env.NODE_ENV === 'production' ? '/projek-temp' : '';
+// HAPUS basePath
+// const basePath = process.env.NODE_ENV === 'production' ? '/projek-temp' : '';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,7 +24,8 @@ const Header = () => {
           {/* Logo - Diganti jadi gambar */}
           <Link href="/" className="flex items-center gap-2">
             <div className="relative w-12 h-12">
-                <Image src={`${basePath}/astronot-food-logo.avif`} alt="Logo Astronot Food" layout="fill" objectFit="contain" unoptimized />
+                {/* HAPUS basePath dari sini */}
+                <Image src="/astronot-food-logo.avif" alt="Logo Astronot Food" layout="fill" objectFit="contain" unoptimized />
             </div>
             <span className="text-xl font-bold text-orange-600 hidden sm:block">
               Freeze Dried Indonesia
