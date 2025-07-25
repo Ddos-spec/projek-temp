@@ -18,6 +18,8 @@
         "name": "next"
       }
     ],
+    // Hanya bagian ini yang diubah
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

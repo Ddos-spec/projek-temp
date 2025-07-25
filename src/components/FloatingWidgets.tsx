@@ -1,26 +1,29 @@
+// src/components/FloatingWidgets.tsx
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 const FloatingWidgets = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // Path relatif karena file SVG ada di folder yang sama
   const widgets = [
     {
       name: "WhatsApp",
-      icon: "💬",
+      icon: "./whatsapp.svg",
       color: "bg-green-500 hover:bg-green-600",
       link: "https://wa.me/6281234567890?text=Halo%20Raja%20Freeze%20Dried%20Food,%20saya%20tertarik%20dengan%20produk%20Anda",
     },
     {
       name: "Shopee",
-      icon: "🛒",
+      icon: "./shopee.svg",
       color: "bg-orange-500 hover:bg-orange-600",
       link: "https://shopee.co.id/rajafreezdriedfood",
     },
     {
       name: "Tokopedia",
-      icon: "🏪",
+      icon: "./tokped.svg",
       color: "bg-green-600 hover:bg-green-700",
       link: "https://tokopedia.com/rajafreezdriedfood",
     },
@@ -49,7 +52,13 @@ const FloatingWidgets = () => {
               className={`flex items-center justify-center w-14 h-14 rounded-full text-white shadow-lg transition-all duration-200 transform hover:scale-110 ${widget.color}`}
               title={`Hubungi kami di ${widget.name}`}
             >
-              <span className="text-2xl">{widget.icon}</span>
+              <Image
+                src={widget.icon}
+                alt={`${widget.name} Icon`}
+                width={24}
+                height={24}
+                className="text-white"
+              />
             </a>
           </div>
         ))}
@@ -74,4 +83,3 @@ const FloatingWidgets = () => {
 };
 
 export default FloatingWidgets;
-
