@@ -12,8 +12,9 @@ export const metadata: Metadata = {
   description: "Raja Freeze Dried Food menyediakan makanan sehat freeze dried berkualitas tinggi. Nikmati kelezatan dan nutrisi yang terjaga dengan teknologi freeze drying terdepan.",
   // Ganti Favicon - pake path absolut
   icons: {
-    icon: '/astronot-food-logo.avif', // atau biarin default kalo file ada di app/ atau public/
+    icon: '/favicon.avif',
   },
+
   keywords: "freeze dried food, makanan sehat, snack sehat, freeze drying, makanan kering, nutrisi terjaga",
   authors: [{ name: "Raja Freeze Dried Food" }],
   openGraph: {

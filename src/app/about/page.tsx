@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link"; // <-- TAMBAHAN IMPORT
 
 export const metadata = {
   title: "Tentang Kami - Raja Freeze Dried Food | Pionir Teknologi Freeze Drying",
@@ -243,12 +244,13 @@ export default function AboutPage() {
               >
                 Hubungi Kami
               </a>
-              <a
+              {/* INI BAGIAN YANG DIUBAH */}
+              <Link
                 href="/blog"
                 className="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-green-600 transition-colors duration-200"
               >
                 Baca Blog Kami
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -257,4 +259,3 @@ export default function AboutPage() {
     </>
   );
 }
-
