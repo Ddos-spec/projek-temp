@@ -28,7 +28,7 @@ const Header = () => {
                 <Image src="/favicon.webp" alt="Logo Astronot Food" layout="fill" objectFit="contain" unoptimized />
             </div>
             <span className="text-xl font-bold text-orange-600 hidden sm:block">
-              Freeze Dried Indonesiaa
+              Freeze Dried Indonesia
             </span>
           </Link>
 
