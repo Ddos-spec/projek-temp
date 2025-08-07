@@ -24,15 +24,7 @@ const Footer = () => {
                 WhatsApp
               </a>
               <a
-                href="https://shopee.co.id/rajafreezdriedfood"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-orange-400 hover:text-orange-300 transition-colors"
-              >
-                Shopee
-              </a>
-              <a
-                href="https://tokopedia.com/rajafreezdriedfood"
+                href="https://www.tokopedia.com/eenkfreeze"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-green-400 hover:text-green-300 transition-colors"

@@ -111,16 +111,12 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-orange-600">{product.name}</h3>
                     <p className="mt-4 text-gray-600 flex-grow">{product.description}</p>
                     {/* ===== BAGIAN INI YANG DIUBAH ===== */}
-                    <div className="mt-6 pt-4 border-t border-gray-200 flex items-center space-x-4">
-                        <a href={product.shopeeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-4 py-2 text-sm font-bold text-white bg-orange-500 rounded-md hover:bg-orange-600 transition-colors">
-                            <ShopeeIcon />
-                            Shopee
-                        </a>
-                        <a href={product.tokopediaUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full px-4 py-2 text-sm font-bold text-white bg-green-600 rounded-md hover:bg-green-700 transition-colors">
-                            <TokopediaIcon />
-                            Tokopedia
-                        </a>
-                    </div>
+                    <div className="grid grid-cols-1 gap-4 mt-4">
+      <a href="https://www.tokopedia.com/eenkfreeze" target="_blank" rel="noopener noreferrer" className="bg-green-500 text-white py-2 px-4 rounded-lg flex items-center justify-center">
+        <Image src="/tokped.svg" alt="Tokopedia" width={24} height={24} className="mr-2" />
+        Tokopedia
+      </a>
+    </div>
                   </div>
                 </div>
               ))}
