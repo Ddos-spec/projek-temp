@@ -48,5 +48,4 @@ jobs:
           local-dir: ./out/
           # Folder tujuan di hosting
           server-dir: public_html/rajafreezdriedfood.com/
-          # Opsi untuk membersihkan folder tujuan sebelum upload (opsional tapi disarankan)
-          dangerous-clean-slate: true
+
