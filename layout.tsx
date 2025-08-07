@@ -44,7 +44,7 @@ export default function RootLayout({
               "name": "Raja Freeze Dried Food",
               "description": "Penyedia makanan sehat freeze dried berkualitas tinggi",
               "url": "https://rajafreezdriedfood.com",
-              "logo": "https://rajafreezdriedfood.com/logo.png",
+              "logo": "https://rajafreezdriedfood.com/facicon.webp",
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+62-xxx-xxxx-xxxx",

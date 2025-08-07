@@ -51,7 +51,7 @@ export default function RootLayout({
               "name": "Raja Freeze Dried Food",
               "description": "Penyedia makanan sehat freeze dried berkualitas tinggi",
               "url": "https://Ddos-spec.github.io", // <-- SUDAH DIBENERIN
-              "logo": "https://Ddos-spec.github.io/astronot-food-logo.avif", // <-- SUDAH DIBENERIN
+              "logo": "https://Ddos-spec.github.io/favicon.webp", // <-- SUDAH DIBENERIN
               "contactPoint": {
                 "@type": "ContactPoint",
                 "telephone": "+62-xxx-xxxx-xxxx",
