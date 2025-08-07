@@ -1,8 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // output: 'export' WAJIB ADA buat static export
-  output: 'export',
+  // Removed output: 'export' to allow API routes
+  // output: 'export',
   
   // Kosongin aja karena kita deploy ke root domain (alamat utama), bukan sub-folder
   assetPrefix: '',

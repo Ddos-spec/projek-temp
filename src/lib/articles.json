@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "title": "Sample Article Title",
+    "excerpt": "Brief article summary...",
+    "content": "Full article content with paragraphs...",
+    "category": "Technology",
+    "date": "2025-01-15",
+    "slug": "sample-article-title",
+    "image": "https://example.com/image.jpg"
+  }
+]
+

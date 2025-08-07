@@ -3,14 +3,40 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { blogPosts, type BlogPost } from "@/lib/data"; // <-- IMPORT TIPE BlogPost JUGA
+import { promises as fs } from 'fs';
+import path from 'path';
+import Image from 'next/image';
+
+interface Article {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  date: string;
+  slug: string;
+  image: string;
+}
 
 export const metadata = {
   title: "Blog - Raja Freeze Dried Food | Tips dan Informasi Freeze Drying",
   description: "Baca artikel terbaru tentang teknologi freeze drying, tips bisnis makanan sehat, dan informasi terkini dari Raja Freeze Dried Food.",
 };
 
-export default function BlogPage() {
+async function getArticles(): Promise<Article[]> {
+  try {
+    const articlesPath = path.join(process.cwd(), 'src/lib/articles.json');
+    const fileContent = await fs.readFile(articlesPath, 'utf-8');
+    return JSON.parse(fileContent);
+  } catch (error) {
+    console.error('Error reading articles:', error);
+    return [];
+  }
+}
+
+export default async function BlogPage() {
+  const articles = await getArticles();
+
   return (
     <>
       <Header />
@@ -29,61 +55,86 @@ export default function BlogPage() {
 
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.map((post: BlogPost) => ( // <-- KASIH TIPE DI SINI
-                <article
-                  key={post.id}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-                >
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
-                        {post.category}
-                      </span>
-                      <time className="text-gray-500 text-sm">
-                        {new Date(post.date).toLocaleDateString("id-ID", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </time>
-                    </div>
+            {articles.length === 0 ? (
+              <div className="text-center py-16">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Belum Ada Artikel
+                </h2>
+                <p className="text-gray-600">
+                  Artikel akan segera hadir. Silakan kembali lagi nanti.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {articles.map((article: Article) => (
+                  <article
+                    key={article.id}
+                    className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                  >
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+                          {article.category}
+                        </span>
+                        <time className="text-gray-500 text-sm">
+                          {new Date(article.date).toLocaleDateString("id-ID", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </time>
+                      </div>
 
-                    <div className="text-center mb-4">
-                      <div className="text-6xl mb-4">{post.image}</div>
-                    </div>
+                      {article.image && (
+                        <div className="mb-4">
+                          {article.image.startsWith('http') ? (
+                            <Image
+                              src={article.image}
+                              alt={article.title}
+                              width={400}
+                              height={200}
+                              className="w-full h-48 object-cover rounded-lg"
+                            />
+                          ) : (
+                            <div className="text-center">
+                              <div className="text-6xl mb-4">{article.image}</div>
+                            </div>
+                          )}
+                        </div>
+                      )}
 
-                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                      {post.title}
-                    </h2>
+                      <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                        {article.title}
+                      </h2>
 
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
+                      <p className="text-gray-600 mb-4 line-clamp-3">
+                        {article.excerpt}
+                      </p>
 
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
-                    >
-                      Baca Selengkapnya
-                      <svg
-                        className="ml-2 w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                      <Link
+                        href={`/blog/${article.slug}`}
+                        className="inline-flex items-center text-green-600 font-medium hover:text-green-700 transition-colors"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
+                        Baca Selengkapnya
+                        <svg
+                          className="ml-2 w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 
