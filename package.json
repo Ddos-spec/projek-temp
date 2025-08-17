@@ -25,5 +25,12 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.2",
     "@eslint/eslintrc": "^3"
-  }
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "not IE 11",
+    "not dead"
+  ]
 }
