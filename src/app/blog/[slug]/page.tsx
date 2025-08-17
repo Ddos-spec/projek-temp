@@ -1,87 +1,46 @@
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { promises as fs } from 'fs';
-import path from 'path';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getPostBySlug, getPostSlugs } from '@/lib/markdown';
 
-interface Article {
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  date: string;
-  slug: string;
-  image: string;
-}
-
-// Ini adalah cara standar dan paling benar untuk mendefinisikan props halaman
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
-
-async function getArticles(): Promise<Article[]> {
-  try {
-    const articlesPath = path.join(process.cwd(), 'src/lib/articles.json');
-    const fileContent = await fs.readFile(articlesPath, 'utf-8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.error('Error reading articles:', error);
-    return [];
-  }
-}
+// Pastikan params terdefinisi
+export type PageProps = { params: { slug: string } };
 
 export async function generateStaticParams() {
-  const articles = await getArticles();
-  return articles.map((article: Article) => ({
-    slug: article.slug,
-  }));
+  const slugs = await getPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
-// Fungsi metadata ini PERLU async karena mengambil data dari file
 export async function generateMetadata({ params }: PageProps) {
-  const articles = await getArticles();
-  const article = articles.find((a: Article) => a.slug === params.slug);
-  
-  if (!article) {
-    return {
-      title: "Artikel Tidak Ditemukan",
-    };
+  const post = await getPostBySlug(params.slug);
+  if (!post) {
+    return { title: 'Artikel Tidak Ditemukan' };
   }
-
   return {
-    title: `${article.title} - Raja Freeze Dried Food`,
-    description: article.excerpt,
+    title: `${post.title} - Raja Freeze Dried Food`,
+    description: post.excerpt,
     openGraph: {
-      title: article.title,
-      description: article.excerpt,
+      title: post.title,
+      description: post.excerpt,
       type: 'article',
-      publishedTime: article.date,
+      publishedTime: post.date,
       authors: ['Raja Freeze Dried Food'],
-      images: article.image ? [article.image] : [],
+      images: post.image ? [post.image] : [],
     },
     twitter: {
       card: 'summary_large_image',
-      title: article.title,
-      description: article.excerpt,
-      images: article.image ? [article.image] : [],
+      title: post.title,
+      description: post.excerpt,
+      images: post.image ? [post.image] : [],
     },
-  };
+  } as any;
 }
 
-// Ini adalah komponen halaman yang PERLU async untuk mengambil data
 export default async function BlogPostDetail({ params }: PageProps) {
-  const { slug } = params;
-  const articles = await getArticles();
-  const article = articles.find((a: Article) => a.slug === slug);
-
-  if (!article) {
-    notFound();
-  }
+  const post = await getPostBySlug(params.slug);
+  if (!post) notFound();
 
   return (
     <>
@@ -91,46 +50,44 @@ export default async function BlogPostDetail({ params }: PageProps) {
           <article>
             <header className="mb-8 text-center border-b pb-8">
               <p className="text-base text-gray-500 mb-2">
-                <time dateTime={article.date}>
-                  {new Date(article.date).toLocaleDateString("id-ID", {
+                <time dateTime={post!.date}>
+                  {new Date(post!.date).toLocaleDateString("id-ID", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   })}
                 </time>
                 <span className="mx-2">•</span>
-                <span>{article.category}</span>
+                <span>{post!.category}</span>
               </p>
               <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-                {article.title}
+                {post!.title}
               </h1>
             </header>
 
-            {article.image && (
+            {post!.image &amp;&amp; (
               <div className="mb-8">
-                {article.image.startsWith('http') ? (
+                {post!.image.startsWith('http') ? (
                   <Image
-                    src={article.image}
-                    alt={article.title}
+                    src={post!.image}
+                    alt={post!.title}
                     width={800}
                     height={400}
                     className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
                   />
                 ) : (
                   <div className="text-center">
-                    <div className="text-8xl mb-4">{article.image}</div>
+                    <div className="text-8xl mb-4">{post!.image}</div>
                   </div>
                 )}
               </div>
             )}
             
             <div className="prose prose-lg max-w-none text-gray-700 leading-loose">
-              <p className="lead text-xl mb-6 font-medium text-gray-800">{article.excerpt}</p>
+              <p className="lead text-xl mb-6 font-medium text-gray-800">{post!.excerpt}</p>
               <div 
-                className="article-content"
-                dangerouslySetInnerHTML={{ 
-                  __html: article.content.replace(/\n/g, '<br />') 
-                }}
+                className="article-content prose-headings:scroll-mt-24"
+                dangerouslySetInnerHTML={{ __html: post!.contentHtml }}
               />
             </div>
 
@@ -139,13 +96,13 @@ export default async function BlogPostDetail({ params }: PageProps) {
                 <div>
                   <p className="text-sm text-gray-500">Kategori:</p>
                   <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
-                    {article.category}
+                    {post!.category}
                   </span>
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-gray-500">Dipublikasikan:</p>
                   <p className="text-sm font-medium text-gray-900">
-                    {new Date(article.date).toLocaleDateString("id-ID", {
+                    {new Date(post!.date).toLocaleDateString("id-ID", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",

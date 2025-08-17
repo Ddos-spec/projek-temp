@@ -1,41 +1,17 @@
 // src/app/blog/page.tsx
-
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { promises as fs } from 'fs';
-import path from 'path';
 import Image from 'next/image';
-
-interface Article {
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  date: string;
-  slug: string;
-  image: string;
-}
+import { getAllPosts, type PostMeta } from '@/lib/markdown';
 
 export const metadata = {
   title: "Blog - Raja Freeze Dried Food | Tips dan Informasi Freeze Drying",
   description: "Baca artikel terbaru tentang teknologi freeze drying, tips bisnis makanan sehat, dan informasi terkini dari Raja Freeze Dried Food.",
 };
 
-async function getArticles(): Promise<Article[]> {
-  try {
-    const articlesPath = path.join(process.cwd(), 'src/lib/articles.json');
-    const fileContent = await fs.readFile(articlesPath, 'utf-8');
-    return JSON.parse(fileContent);
-  } catch (error) {
-    console.error('Error reading articles:', error);
-    return [];
-  }
-}
-
 export default async function BlogPage() {
-  const articles = await getArticles();
+  const articles: PostMeta[] = await getAllPosts();
 
   return (
     <>
@@ -61,14 +37,14 @@ export default async function BlogPage() {
                   Belum Ada Artikel
                 </h2>
                 <p className="text-gray-600">
-                  Artikel akan segera hadir. Silakan kembali lagi nanti.
+                  Tambahkan file .md baru di folder src/content/blog untuk mulai menulis.
                 </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {articles.map((article: Article) => (
+                {articles.map((article) => (
                   <article
-                    key={article.id}
+                    key={article.slug}
                     className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
                   >
                     <div className="p-6">
