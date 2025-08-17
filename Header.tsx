@@ -25,7 +25,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-8" aria-label="Navigasi utama">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -53,13 +53,15 @@ const Header = () => {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2"
+            aria-label={isMenuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu-root"
           >
-            <div className="w-6 h-6 flex flex-col justify-center items-center">
-              <span
-                className={`bg-gray-700 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${
-                  isMenuOpen ? "rotate-45 translate-y-1" : "-translate-y-0.5"
-                }`}
-              ></span>
+            <span className="sr-only">{isMenuOpen ? "Tutup menu" : "Buka menu"}</span>
+            <div className="w-6 h-6 flex flex-col justify-center items-center" aria-hidden>
+              <span className={`bg-gray-700 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${
+                isMenuOpen ? "rotate-45 translate-y-1" : "-translate-y-0.5"
+              }`}></span>
               <span
                 className={`bg-gray-700 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${
                   isMenuOpen ? "opacity-0" : "opacity-100"
@@ -76,7 +78,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden pb-4">
+          <div id="mobile-menu-root" className="md:hidden pb-4" role="region" aria-label="Menu navigasi seluler">
             <nav className="flex flex-col space-y-4">
               {navigation.map((item) => (
                 <Link
@@ -105,4 +107,3 @@ const Header = () => {
 };
 
 export default Header;
-

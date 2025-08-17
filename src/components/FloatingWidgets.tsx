@@ -28,13 +28,15 @@ const FloatingWidgets = () => {
             href={widget.link}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={widget.name}
             // Tombol digedein jadi w-16 h-16
             className={`flex items-center justify-center w-16 h-16 rounded-full text-white shadow-lg transition-all duration-200 transform hover:scale-110 ${widget.color}`}
             title={`Hubungi kami di ${widget.name}`}
           >
             <Image
               src={widget.icon}
-              alt={`${widget.name} Icon`}
+              alt=""
+              aria-hidden
               // Ikon di dalemnya juga digedein jadi 32x32
               width={32}
               height={32}
