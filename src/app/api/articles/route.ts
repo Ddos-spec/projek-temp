@@ -1,1 +1,0 @@
-// Articles API removed intentionally. No handlers are exported to disable the route.
