@@ -5,16 +5,13 @@ import FloatingWidgets from "@/components/FloatingWidgets";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// HAPUS basePath
-
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rajafreezdriedfood.com"),
   title: "Raja Freeze Dried Food - Makanan Sehat Freeze Dried Terbaik",
   description: "Raja Freeze Dried Food menyediakan makanan sehat freeze dried berkualitas tinggi. Nikmati kelezatan dan nutrisi yang terjaga dengan teknologi freeze drying terdepan.",
-  // Ganti Favicon - pake path absolut
   icons: {
-    icon: '/favicon.avif',
+    icon: '/favicon.webp',
   },
-
   keywords: "freeze dried food, makanan sehat, snack sehat, freeze drying, makanan kering, nutrisi terjaga",
   authors: [{ name: "Raja Freeze Dried Food" }],
   openGraph: {
@@ -22,6 +19,7 @@ export const metadata: Metadata = {
     description: "Raja Freeze Dried Food menyediakan makanan sehat freeze dried berkualitas tinggi. Nikmati kelezatan dan nutrisi yang terjaga dengan teknologi freeze drying terdepan.",
     type: "website",
     locale: "id_ID",
+    url: "https://rajafreezdriedfood.com",
   },
   twitter: {
     card: "summary_large_image",
@@ -31,6 +29,12 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: '/',
+    languages: {
+      'id-ID': '/',
+    },
   },
 };
 
@@ -48,14 +52,14 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Raja Freeze Dried Food",
-              "description": "Penyedia makanan sehat freeze dried berkualitas tinggi",
-              "url": "https://Ddos-spec.github.io", // <-- SUDAH DIBENERIN
-              "logo": "https://Ddos-spec.github.io/favicon.webp", // <-- SUDAH DIBENERIN
-              "contactPoint": {
+              name: "Raja Freeze Dried Food",
+              description: "Penyedia makanan sehat freeze dried berkualitas tinggi",
+              url: "https://rajafreezdriedfood.com",
+              logo: "https://rajafreezdriedfood.com/favicon.webp",
+              contactPoint: {
                 "@type": "ContactPoint",
-                "telephone": "+62-xxx-xxxx-xxxx",
-                "contactType": "customer service"
+                telephone: "+62-xxx-xxxx-xxxx",
+                contactType: "customer service"
               }
             })
           }}

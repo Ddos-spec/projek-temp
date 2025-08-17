@@ -8,6 +8,7 @@ import { getAllPosts, type PostMeta } from '@/lib/markdown';
 export const metadata = {
   title: "Blog - Raja Freeze Dried Food | Tips dan Informasi Freeze Drying",
   description: "Baca artikel terbaru tentang teknologi freeze drying, tips bisnis makanan sehat, dan informasi terkini dari Raja Freeze Dried Food.",
+  alternates: { canonical: '/blog' },
 };
 
 export default async function BlogPage() {

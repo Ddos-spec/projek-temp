@@ -16,24 +16,26 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps) {
   const post = await getPostBySlug(params.slug);
   if (!post) {
-    return { title: 'Artikel Tidak Ditemukan' };
+    return { title: 'Artikel Tidak Ditemukan' } as any;
   }
   return {
     title: `${post.title} - Raja Freeze Dried Food`,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${params.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.date,
       authors: ['Raja Freeze Dried Food'],
-      images: post.image ? [post.image] : [],
+      images: post.image && post.image.startsWith('http') ? [post.image] : [],
+      url: `/blog/${params.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: post.image ? [post.image] : [],
+      images: post.image && post.image.startsWith('http') ? [post.image] : [],
     },
   } as any;
 }
@@ -42,9 +44,39 @@ export default async function BlogPostDetail({ params }: PageProps) {
   const post = await getPostBySlug(params.slug);
   if (!post) notFound();
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post!.title,
+    datePublished: post!.date,
+    dateModified: post!.date,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://rajafreezdriedfood.com/blog/${post!.slug}`,
+    },
+    ...(post!.image && post!.image.startsWith('http')
+      ? { image: [post!.image] }
+      : {}),
+    author: {
+      "@type": "Organization",
+      name: "Raja Freeze Dried Food",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Raja Freeze Dried Food",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://rajafreezdriedfood.com/favicon.webp",
+      },
+    },
+    description: post!.excerpt,
+  };
+
   return (
     <>
       <Header />
+      {/* JSON-LD untuk Article */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <main className="min-h-screen bg-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <article>
@@ -65,7 +97,7 @@ export default async function BlogPostDetail({ params }: PageProps) {
               </h1>
             </header>
 
-            {post!.image &amp;&amp; (
+            {post!.image && (
               <div className="mb-8">
                 {post!.image.startsWith('http') ? (
                   <Image
