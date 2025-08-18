@@ -41,35 +41,39 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     const file = await fs.readFile(fullPath, 'utf8');
     const { data, content } = matter(file);
 
+    // Type guard for frontmatter
+    const frontmatter = data as Record<string, unknown>;
+
     // Validate required fields
     const required = ['title', 'date', 'excerpt', 'category', 'image', 'slug'] as const;
     for (const key of required) {
-      if (!(key in data) || typeof (data as any)[key] !== 'string' || !(data as any)[key].trim()) {
+      const value = frontmatter[key];
+      if (typeof value !== 'string' || !value.trim()) {
         throw new Error(`Frontmatter '${key}' wajib ada dan berupa string non-kosong pada ${slug}.md`);
       }
     }
 
     // Pastikan slug di frontmatter konsisten dengan nama file
-    if ((data as any).slug !== slug) {
-      throw new Error(`Frontmatter slug ('${(data as any).slug}') harus sama dengan nama file ('${slug}')`);
+    if (frontmatter.slug !== slug) {
+      throw new Error(`Frontmatter slug ('${frontmatter.slug}') harus sama dengan nama file ('${slug}')`);
     }
 
     const html = marked.parse(content);
 
     const meta: PostMeta = {
-      title: (data as any).title,
-      date: (data as any).date,
-      excerpt: (data as any).excerpt,
-      category: (data as any).category,
-      image: (data as any).image,
-      slug: (data as any).slug,
+      title: frontmatter.title as string,
+      date: frontmatter.date as string,
+      excerpt: frontmatter.excerpt as string,
+      category: frontmatter.category as string,
+      image: frontmatter.image as string,
+      slug: frontmatter.slug as string,
     };
 
     return {
       ...meta,
       contentHtml: typeof html === 'string' ? html : String(html),
     };
-  } catch (e) {
+  } catch (_e) {
     // Jika file tidak ditemukan atau error parsing
     return null;
   }
@@ -81,6 +85,7 @@ export async function getAllPosts(): Promise<PostMeta[]> {
   for (const slug of slugs) {
     const post = await getPostBySlug(slug);
     if (post) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { contentHtml, ...meta } = post;
       posts.push(meta);
     }

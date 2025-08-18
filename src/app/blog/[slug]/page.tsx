@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import Image from 'next/image';
 import Link from 'next/link';
 import { getPostBySlug, getPostSlugs } from '@/lib/markdown';
+import type { Metadata } from 'next';
 
-// Pastikan params terdefinisi
 export type PageProps = { params: { slug: string } };
 
 export async function generateStaticParams() {
@@ -13,10 +13,10 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   if (!post) {
-    return { title: 'Artikel Tidak Ditemukan' } as any;
+    return { title: 'Artikel Tidak Ditemukan' };
   }
   return {
     title: `${post.title} - Raja Freeze Dried Food`,
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: PageProps) {
       description: post.excerpt,
       images: post.image && post.image.startsWith('http') ? [post.image] : [],
     },
-  } as any;
+  };
 }
 
 export default async function BlogPostDetail({ params }: PageProps) {
@@ -47,15 +47,15 @@ export default async function BlogPostDetail({ params }: PageProps) {
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: post!.title,
-    datePublished: post!.date,
-    dateModified: post!.date,
+    headline: post.title,
+    datePublished: post.date,
+    dateModified: post.date,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://rajafreezdriedfood.com/blog/${post!.slug}`,
+      "@id": `https://rajafreezdriedfood.com/blog/${post.slug}`,
     },
-    ...(post!.image && post!.image.startsWith('http')
-      ? { image: [post!.image] }
+    ...(post.image && post.image.startsWith('http')
+      ? { image: [post.image] }
       : {}),
     author: {
       "@type": "Organization",
@@ -69,7 +69,7 @@ export default async function BlogPostDetail({ params }: PageProps) {
         url: "https://rajafreezdriedfood.com/favicon.webp",
       },
     },
-    description: post!.excerpt,
+    description: post.excerpt,
   };
 
   return (
@@ -82,27 +82,27 @@ export default async function BlogPostDetail({ params }: PageProps) {
           <article>
             <header className="mb-8 text-center border-b pb-8">
               <p className="text-base text-gray-500 mb-2">
-                <time dateTime={post!.date}>
-                  {new Date(post!.date).toLocaleDateString("id-ID", {
+                <time dateTime={post.date}>
+                  {new Date(post.date).toLocaleDateString("id-ID", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                   })}
                 </time>
                 <span className="mx-2">•</span>
-                <span>{post!.category}</span>
+                <span>{post.category}</span>
               </p>
               <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-                {post!.title}
+                {post.title}
               </h1>
             </header>
 
-            {post!.image && (
+            {post.image && (
               <div className="mb-8">
-                {post!.image.startsWith('http') ? (
+                {post.image.startsWith('http') ? (
                   <Image
-                    src={post!.image}
-                    alt={post!.title}
+                    src={post.image}
+                    alt={post.title}
                     width={800}
                     height={400}
                     sizes="(min-width: 768px) 800px, 100vw"
@@ -110,17 +110,17 @@ export default async function BlogPostDetail({ params }: PageProps) {
                   />
                 ) : (
                   <div className="text-center">
-                    <div className="text-8xl mb-4">{post!.image}</div>
+                    <div className="text-8xl mb-4">{post.image}</div>
                   </div>
                 )}
               </div>
             )}
             
             <div className="prose prose-lg max-w-none text-gray-700 leading-loose">
-              <p className="lead text-xl mb-6 font-medium text-gray-800">{post!.excerpt}</p>
+              <p className="lead text-xl mb-6 font-medium text-gray-800">{post.excerpt}</p>
               <div 
                 className="article-content prose-headings:scroll-mt-24"
-                dangerouslySetInnerHTML={{ __html: post!.contentHtml }}
+                dangerouslySetInnerHTML={{ __html: post.contentHtml }}
               />
             </div>
 
@@ -129,13 +129,13 @@ export default async function BlogPostDetail({ params }: PageProps) {
                 <div>
                   <p className="text-sm text-gray-500">Kategori:</p>
                   <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
-                    {post!.category}
+                    {post.category}
                   </span>
                 </div>
                 <div className="text-right">
                   <p className="text-sm text-gray-500">Dipublikasikan:</p>
                   <p className="text-sm font-medium text-gray-900">
-                    {new Date(post!.date).toLocaleDateString("id-ID", {
+                    {new Date(post.date).toLocaleDateString("id-ID", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
