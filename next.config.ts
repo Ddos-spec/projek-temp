@@ -84,4 +84,9 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withExport = {
+  ...nextConfig,
+  output: 'export',
+};
+
+export default withExport;
