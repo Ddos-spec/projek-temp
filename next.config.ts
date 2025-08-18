@@ -34,6 +34,7 @@ const nextConfig: NextConfig = {
   images: {
     // Aktifkan optimisasi gambar Next untuk menghasilkan ukuran responsif
     formats: ['image/avif', 'image/webp'],
+    unoptimized: true,
   },
 
   typescript: { ignoreBuildErrors: true },
