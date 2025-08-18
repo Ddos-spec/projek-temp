@@ -22,19 +22,19 @@ export type Post = PostMeta & {
 
 const BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
 
-async function ensureDir(): Promise&lt;void&gt; {
+async function ensureDir(): Promise<void> {
   await fs.mkdir(BLOG_DIR, { recursive: true });
 }
 
-export async function getPostSlugs(): Promise&lt;string[]&gt; {
+export async function getPostSlugs(): Promise<string[]> {
   await ensureDir();
   const entries = await fs.readdir(BLOG_DIR, { withFileTypes: true });
   return entries
-    .filter((e) =&gt; e.isFile() &amp;&amp; e.name.endsWith('.md'))
-    .map((e) =&gt; e.name.replace(/\.md$/, ''));
+    .filter((e) => e.isFile() && e.name.endsWith('.md'))
+    .map((e) => e.name.replace(/\.md$/, ''));
 }
 
-export async function getPostBySlug(slug: string): Promise&lt;Post | null&gt; {
+export async function getPostBySlug(slug: string): Promise<Post | null> {
   await ensureDir();
   const fullPath = path.join(BLOG_DIR, `${slug}.md`);
   try {
@@ -75,7 +75,7 @@ export async function getPostBySlug(slug: string): Promise&lt;Post | null&gt; {
   }
 }
 
-export async function getAllPosts(): Promise&lt;PostMeta[]&gt; {
+export async function getAllPosts(): Promise<PostMeta[]> {
   const slugs = await getPostSlugs();
   const posts: PostMeta[] = [];
   for (const slug of slugs) {
@@ -86,6 +86,6 @@ export async function getAllPosts(): Promise&lt;PostMeta[]&gt; {
     }
   }
   // Urutkan terbaru dulu berdasarkan date (YYYY-MM-DD)
-  posts.sort((a, b) =&gt; (a.date &lt; b.date ? 1 : a.date &gt; b.date ? -1 : 0));
+  posts.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
   return posts;
 }
