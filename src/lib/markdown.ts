@@ -10,6 +10,7 @@ export type PostFrontmatter = {
   category: string;
   image: string; // URL, emoji, or public path
   slug: string; // required and should match file name
+  published?: boolean; // Optional: true if published, false or undefined if draft
 };
 
 export type PostMeta = PostFrontmatter & {
@@ -27,11 +28,8 @@ async function ensureDir(): Promise<void> {
 }
 
 export async function getPostSlugs(): Promise<string[]> {
-  await ensureDir();
-  const entries = await fs.readdir(BLOG_DIR, { withFileTypes: true });
-  return entries
-    .filter((e) => e.isFile() && e.name.endsWith('.md'))
-    .map((e) => e.name.replace(/\.md$/, ''));
+  const posts = await getAllPosts();
+  return posts.map((post) => post.slug);
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
@@ -67,6 +65,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       category: frontmatter.category as string,
       image: frontmatter.image as string,
       slug: frontmatter.slug as string,
+      published: frontmatter.published === true, // Default to false if not present
     };
 
     return {
@@ -80,11 +79,16 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 }
 
 export async function getAllPosts(): Promise<PostMeta[]> {
-  const slugs = await getPostSlugs();
+  await ensureDir();
+  const entries = await fs.readdir(BLOG_DIR, { withFileTypes: true });
+  const slugs = entries
+    .filter((e) => e.isFile() && e.name.endsWith('.md'))
+    .map((e) => e.name.replace(/\.md$/, ''));
+
   const posts: PostMeta[] = [];
   for (const slug of slugs) {
     const post = await getPostBySlug(slug);
-    if (post) {
+    if (post && post.published) { // Only include published posts
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { contentHtml, ...meta } = post;
       posts.push(meta);
