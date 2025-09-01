@@ -42,8 +42,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     // Type guard for frontmatter
     const frontmatter = data as Record<string, unknown>;
 
-    // Validate required fields
-    const required = ['title', 'date', 'excerpt', 'category', 'image', 'slug'] as const;
+    // Validate required fields except slug — we prefer filename as source-of-truth for slug.
+    const required = ['title', 'date', 'excerpt', 'category'] as const;
     for (const key of required) {
       const value = frontmatter[key];
       if (typeof value !== 'string' || !value.trim()) {
@@ -51,10 +51,14 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       }
     }
 
-    // Pastikan slug di frontmatter konsisten dengan nama file
-    if (frontmatter.slug !== slug) {
-      throw new Error(`Frontmatter slug ('${frontmatter.slug}') harus sama dengan nama file ('${slug}')`);
+    // Image is optional, but if provided ensure it's a non-empty string
+    const imageVal = frontmatter.image;
+    if (imageVal !== undefined && (typeof imageVal !== 'string' || !imageVal.trim())) {
+      throw new Error(`Frontmatter 'image' jika ada harus berupa string non-kosong pada ${slug}.md`);
     }
+
+    // Slug: prefer filename slug; if frontmatter.slug present, allow it but do not require equality.
+    const fmSlug = typeof frontmatter.slug === 'string' && frontmatter.slug.trim() ? (frontmatter.slug as string) : slug;
 
     const html = marked.parse(content);
 
@@ -63,9 +67,11 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       date: frontmatter.date as string,
       excerpt: frontmatter.excerpt as string,
       category: frontmatter.category as string,
-      image: frontmatter.image as string,
-      slug: frontmatter.slug as string,
-      published: frontmatter.published === true, // Default to false if not present
+      image: (imageVal as string) || '',
+      slug: fmSlug,
+      // Treat published as true when explicitly true, otherwise default to true so posts show up
+      // unless author explicitly sets published: false
+      published: frontmatter.published === false ? false : true,
     };
 
     return {

@@ -64,7 +64,7 @@ export default async function BlogPage() {
 
                       {article.image && (
                         <div className="mb-4">
-                          {article.image.startsWith('http') ? (
+                          {(article.image.startsWith('http') || article.image.startsWith('/')) ? (
                             <Image
                               src={article.image}
                               alt={article.title}

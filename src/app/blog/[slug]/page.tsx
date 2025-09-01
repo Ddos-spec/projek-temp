@@ -13,6 +13,10 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
+// Force this route to be dynamic so Next.js always resolve server-side and avoid
+// 404 on client hard refresh when static params generation is incomplete.
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getPostBySlug(params.slug);
   if (!post) {
