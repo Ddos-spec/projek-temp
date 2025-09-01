@@ -109,9 +109,14 @@ export default async function BlogPostDetail({ params }: PageProps) {
                     className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
                   />
                 ) : (
-                  <div className="text-center">
-                    <div className="text-8xl mb-4">{post.image}</div>
-                  </div>
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    width={800}
+                    height={400}
+                    sizes="(min-width: 768px) 800px, 100vw"
+                    className="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
+                  />
                 )}
               </div>
             )}
