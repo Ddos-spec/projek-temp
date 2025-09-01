@@ -3,8 +3,9 @@ title: "Selamat Datang di Blog Freeze Dried Indonesia"
 date: "2025-08-01"
 excerpt: "Perkenalan singkat tentang blog berbasis Markdown dan bagaimana cara menambahkan artikel baru."
 category: "Pengumuman"
-image: "🧊"
+image: "/manggajusbar.webp"
 slug: "sample-article"
+published: true
 ---
 
 ## Apa ini?

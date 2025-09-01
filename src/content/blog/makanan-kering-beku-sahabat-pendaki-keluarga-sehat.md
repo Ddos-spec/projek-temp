@@ -3,7 +3,7 @@ title: "Makanan Kering Beku: Sahabat Setia Pendaki Gunung & Keluarga Sehat"
 date: "2024-02-29"
 excerpt: "Makanan kering beku menawarkan kemudahan, nutrisi terjaga, dan umur simpan panjang, menjadikannya pilihan ideal untuk pendaki gunung, pekemah, dan keluarga yang menginginkan makanan sehat praktis."
 category: "Nutrisi"
-image: "/images/blog/freeze-dried-hiking.jpg"
+image: "/manggajusbar.webp"
 slug: "makanan-kering-beku-sahabat-pendaki-keluarga-sehat"
 published: true
 ---

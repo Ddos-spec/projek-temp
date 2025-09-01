@@ -3,7 +3,7 @@ title: "Freeze Dried Food: Solusi Praktis dan Sehat untuk Gaya Hidup Aktifmu!"
 date: "2024-10-27"
 excerpt: "Makanan kering beku menawarkan kemudahan, umur simpan panjang, dan nutrisi yang terjaga. Temukan bagaimana teknologi ini bisa mendukung gaya hidup sehat dan aktifmu!"
 category: "Gaya Hidup"
-image: "/images/blog/freeze-dried-strawberries.jpg"
+image: "/manggajusbar.webp"
 slug: "freeze-dried-food-solusi-praktis-sehat-gaya-hidup-aktif"
 published: true
 ---

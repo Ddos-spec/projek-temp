@@ -3,7 +3,7 @@ title: "Freeze Dried Food: Solusi Praktis dan Bergizi untuk Gaya Hidup Aktifmu!"
 date: "2024-02-29"
 excerpt: "Makanan kering beku (freeze dried food) menawarkan kemudahan dan nutrisi optimal bagi pendaki gunung, orang tua sibuk, dan siapa saja yang mengutamakan gaya hidup sehat. Artikel ini membahas manfaat, cara kerja, dan ide praktisnya."
 category: "Gaya Hidup"
-image: "/images/blog/freeze-dried-fruit-hiking.jpg"
+image: "/manggajusbar.webp"
 slug: "freeze-dried-food-solusi-praktis-bergizi"
 published: true
 ---

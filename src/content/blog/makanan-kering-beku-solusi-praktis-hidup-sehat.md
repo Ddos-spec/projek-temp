@@ -3,7 +3,7 @@ title: "Makanan Kering Beku: Solusi Praktis untuk Hidup Sehat dan Aktif"
 date: "2024-02-29"
 excerpt: "Makanan kering beku menawarkan kemudahan dan nutrisi bagi gaya hidup sehat dan aktif. Artikel ini membahas manfaat, cara kerja, dan ide penggunaannya."
 category: "Nutrisi"
-image: "/images/blog/freeze-dried-fruits.jpg"
+image: "/manggajusbar.webp"
 slug: "makanan-kering-beku-solusi-praktis-hidup-sehat"
 published: true
 ---

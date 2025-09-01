@@ -3,7 +3,7 @@ title: "Makanan Kering Beku: Sahabat Pendaki Gunung dan Gaya Hidup Sehatmu!"
 date: "2024-01-02"
 excerpt: "Makanan kering beku bukan hanya untuk astronot! Temukan bagaimana teknologi ini menjaga nutrisi dan kemudahan dalam setiap gigitan, cocok untuk petualang dan mereka yang sibuk."
 category: "Gaya Hidup"
-image: "/images/blog/freeze-dried-fruit-hiking.jpg"
+image: "/manggajusbar.webp"
 slug: "makanan-kering-beku-sahabat-pendaki-dan-gaya-hidup-sehatmu"
 published: true
 ---
