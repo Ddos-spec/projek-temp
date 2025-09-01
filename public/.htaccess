@@ -1,7 +1,15 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  # Rewrite requests to /page to /page.html
+
+  # Existing rule: Rewrite requests to /page to /page.html
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+  # New rule for SPA fallback:
+  # If the requested file does not exist and is not a directory,
+  # rewrite the request to index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
 </IfModule>
