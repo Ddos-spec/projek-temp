@@ -14,26 +14,27 @@ jobs:
   # Nama job-nya
   build-and-deploy:
     runs-on: ubuntu-latest # Menjalankan job di mesin virtual Ubuntu
+    
     steps:
       # 1. Mengambil kode dari repository
       - name: Checkout Code
         uses: actions/checkout@v4
-
+       
       # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20" # Versi Node.js yang sama
           cache: 'npm'
-
+       
       # 3. Install semua dependencies
       - name: Install Dependencies
         run: npm install
-
+       
       # 4. Build project jadi file statis di folder 'out'
       - name: Build Project
         run: npm run build
-
+       
       # 5. Deploy ke Hostinger via FTP
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -48,4 +49,5 @@ jobs:
           local-dir: ./out/
           # Folder tujuan di hosting
           server-dir: public_html/rajafreezdriedfood.com/
-
+          # Hapus semua file lama sebelum upload (fix untuk error _next folder)
+          dangerous-clean-slate: true
