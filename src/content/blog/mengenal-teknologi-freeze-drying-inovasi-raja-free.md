@@ -3,7 +3,7 @@ title: "Mengenal Teknologi Freeze Drying: Inovasi Raja Freeze Dried Food untuk K
 date: "2025-09-18"
 excerpt: "Pelajari teknologi freeze drying dan bagaimana Raja Freeze Dried Food menjaga nutrisi, rasa, dan kesegaran makanan Anda. Solusi praktis untuk kesehatan optimal, diet diabetes, dan gaya hidup aktif."
 category: "Kesehatan"
-image: "/blogmengenal-teknologi-freeze-drying-inovasi-raja-free-2025-09-18.jpg"
+image: "/mengenal-teknologi-freeze-drying-inovasi-raja-free-2025-09-18.jpg"
 slug: "mengenal-teknologi-freeze-drying-inovasi-raja-free"
 published: true
 ---
