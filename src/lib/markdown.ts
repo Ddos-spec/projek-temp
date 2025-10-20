@@ -22,6 +22,148 @@ export type Post = PostMeta & {
 };
 
 const BLOG_DIR = path.join(process.cwd(), 'src', 'content', 'blog');
+const PUBLIC_DIR = path.join(process.cwd(), 'public');
+const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.avif']);
+
+type ImageIndexEntry = {
+  path: string;
+  tokens: string[];
+};
+
+let cachedImageIndex: ImageIndexEntry[] | null = null;
+
+const CATEGORY_IMAGE_MAP: Record<string, string> = {
+  agribisnis: '/freeze-drying-solusi-makanan-sehat-praktis-raja-fo.jpg',
+  bisnis: '/freeze-dried-food-solusi-makanan-sehat-praktis-mod.jpg',
+  kebugaran: '/freeze-dried-food-nutrisi-optimal-praktis-aman-mas.jpg',
+  kesehatan: '/manfaat-freeze-dried-nutrisi-optimal-praktis-hidup.jpg',
+  inovasi: '/teknologi-freeze-drying-inovasi-pangan-sehat-masa-.jpg',
+  teknologi: '/teknologi-freeze-drying-solusi-makanan-sehat-prakt.jpg',
+  lifestyle: '/rahasia-freeze-drying-nutrisi-optimal-untuk-gaya-h.jpg',
+  parenting: '/buah-freeze-dried-rahasia-snack-sehat-praktis-dan-.jpg',
+  kuliner: '/keajaiban-freeze-drying-makanan-sehat-praktis-raja.jpg',
+  'rantai pasok': '/freeze-drying-revolusi-nutrisi-makanan-praktis-raj.jpg',
+  outdoor: '/freeze-drying-rahasia-buah-awet-nutrisi-terjaga.jpg',
+  panduan: '/menguak-teknologi-freeze-drying-makanan-sehat-prak.jpg',
+};
+
+const DEFAULT_POST_IMAGE = '/raja-freeze-dried-food-revolusi-makanan-sehat-tekn.jpg';
+
+function normalizeForTokens(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function tokenize(value: string): string[] {
+  const clean = value.replace(/\\/g, '/');
+  const segment = clean.split('/').filter(Boolean).pop() ?? clean;
+  const normalized = normalizeForTokens(segment);
+  return normalized ? normalized.split('-').filter(Boolean) : [];
+}
+
+async function buildImageIndex(): Promise<ImageIndexEntry[]> {
+  if (cachedImageIndex) return cachedImageIndex;
+
+  const entries: ImageIndexEntry[] = [];
+
+  async function walk(dir: string) {
+    const stats = await fs.readdir(dir, { withFileTypes: true });
+    for (const stat of stats) {
+      const fullPath = path.join(dir, stat.name);
+      if (stat.isDirectory()) {
+        await walk(fullPath);
+        continue;
+      }
+      const ext = path.extname(stat.name).toLowerCase();
+      if (!IMAGE_EXTENSIONS.has(ext)) continue;
+      const relative = `/${path.relative(PUBLIC_DIR, fullPath).split(path.sep).join('/')}`;
+      entries.push({ path: relative, tokens: tokenize(relative) });
+    }
+  }
+
+  try {
+    await walk(PUBLIC_DIR);
+  } catch {
+    // ignore errors while scanning public dir; we'll fallback later
+  }
+
+  cachedImageIndex = entries;
+  return cachedImageIndex;
+}
+
+async function findBestImageMatch(hints: string[]): Promise<string | null> {
+  if (hints.length === 0) return null;
+  const index = await buildImageIndex();
+  if (index.length === 0) return null;
+
+  let bestPath: string | null = null;
+  let bestScore = 0;
+
+  for (const rawHint of hints) {
+    const hintTokens = tokenize(rawHint);
+    if (hintTokens.length === 0) continue;
+
+    for (const entry of index) {
+      if (entry.tokens.length === 0) continue;
+      const score = entry.tokens.reduce((acc, token) => (hintTokens.includes(token) ? acc + 1 : acc), 0);
+      if (score > bestScore) {
+        bestScore = score;
+        bestPath = entry.path;
+      }
+    }
+  }
+
+  if (bestScore >= 2) {
+    return bestPath;
+  }
+
+  return null;
+}
+
+async function resolvePostImage({
+  slug,
+  requestedImage,
+  category,
+}: {
+  slug: string;
+  requestedImage: string;
+  category: string;
+}): Promise<string> {
+  const trimmed = requestedImage.trim();
+  const hints: string[] = trimmed ? [trimmed, slug] : [slug];
+
+  if (trimmed && (trimmed.startsWith('http://') || trimmed.startsWith('https://'))) {
+    return trimmed;
+  }
+
+  if (trimmed) {
+    const normalizedPath = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+    const sanitizedPath = normalizedPath.split('\\').join('/');
+    const relativePath = sanitizedPath.startsWith("/") ? sanitizedPath.slice(1) : sanitizedPath;
+    const absolutePath = path.join(PUBLIC_DIR, relativePath);
+
+    try {
+      await fs.access(absolutePath);
+      return sanitizedPath;
+    } catch {
+      // continue to fallback logic
+    }
+  }
+
+  const bestMatch = await findBestImageMatch(hints);
+  if (bestMatch) {
+    return bestMatch;
+  }
+
+  const categoryImage = CATEGORY_IMAGE_MAP[category.toLowerCase()];
+  if (categoryImage) {
+    return categoryImage;
+  }
+
+  return DEFAULT_POST_IMAGE;
+}
 
 async function ensureDir(): Promise<void> {
   await fs.mkdir(BLOG_DIR, { recursive: true });
@@ -62,12 +204,18 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
     const html = marked.parse(content);
 
+    const resolvedImage = await resolvePostImage({
+      slug,
+      requestedImage: typeof imageVal === 'string' ? imageVal : '',
+      category: frontmatter.category as string,
+    });
+
     const meta: PostMeta = {
       title: frontmatter.title as string,
       date: frontmatter.date as string,
       excerpt: frontmatter.excerpt as string,
       category: frontmatter.category as string,
-      image: (imageVal as string) || '',
+      image: resolvedImage,
       slug: fmSlug,
       // Treat published as true when explicitly true, otherwise default to true so posts show up
       // unless author explicitly sets published: false

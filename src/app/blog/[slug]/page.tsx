@@ -8,6 +8,17 @@ import type { Metadata } from 'next';
 
 export type PageProps = { params: { slug: string } };
 
+const SITE_URL = 'https://rajafreezdriedfood.com';
+
+function toAbsoluteUrl(imagePath: string): string {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    return imagePath;
+  }
+  const normalized = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+  return `${SITE_URL}${normalized}`;
+}
+
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
   return slugs.map((slug) => ({ slug }));
@@ -18,6 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!post) {
     return { title: 'Artikel Tidak Ditemukan' };
   }
+  const absoluteImage = post.image ? toAbsoluteUrl(post.image) : '';
   return {
     title: `${post.title} - Raja Freeze Dried Food`,
     description: post.excerpt,
@@ -28,14 +40,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'article',
       publishedTime: post.date,
       authors: ['Raja Freeze Dried Food'],
-      images: post.image && post.image.startsWith('http') ? [post.image] : [],
+      images: absoluteImage ? [absoluteImage] : [],
       url: `/blog/${params.slug}`,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: post.image && post.image.startsWith('http') ? [post.image] : [],
+      images: absoluteImage ? [absoluteImage] : [],
     },
   };
 }
@@ -54,8 +66,8 @@ export default async function BlogPostDetail({ params }: PageProps) {
       "@type": "WebPage",
       "@id": `https://rajafreezdriedfood.com/blog/${post.slug}`,
     },
-    ...(post.image && post.image.startsWith('http')
-      ? { image: [post.image] }
+    ...(post.image
+      ? { image: [toAbsoluteUrl(post.image)] }
       : {}),
     author: {
       "@type": "Organization",
