@@ -78,7 +78,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
       ...meta,
       contentHtml: typeof html === 'string' ? html : String(html),
     };
-  } catch (_e) {
+  } catch {
     // Jika file tidak ditemukan atau error parsing
     return null;
   }

@@ -14,40 +14,67 @@ jobs:
   # Nama job-nya
   build-and-deploy:
     runs-on: ubuntu-latest # Menjalankan job di mesin virtual Ubuntu
-    
+
     steps:
       # 1. Mengambil kode dari repository
       - name: Checkout Code
         uses: actions/checkout@v4
-       
+
       # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20" # Versi Node.js yang sama
           cache: 'npm'
-       
+
       # 3. Install semua dependencies
       - name: Install Dependencies
         run: npm install
-       
+
       # 4. Build project jadi file statis di folder 'out'
       - name: Build Project
         run: npm run build
-       
-      # 5. Deploy ke Hostinger via FTP
+
+      # 5. Backup deployment yang sudah ada sebelum upload versi baru
+      - name: Backup existing deployment
+        id: backup
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+          TIMESTAMP="$(date +%Y%m%d%H%M%S)"
+          BACKUP_DIR="backup-${TIMESTAMP}"
+          mkdir -p "$BACKUP_DIR"
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" <<'LFTP'
+          set ftp:list-options -a
+          set ssl:verify-certificate no
+          mirror --verbose --parallel=2 --use-cache --continue public_html/rajafreezdriedfood.com $BACKUP_DIR
+          quit
+LFTP
+          tar -czf "${BACKUP_DIR}.tar.gz" "$BACKUP_DIR"
+          echo "archive=${BACKUP_DIR}.tar.gz" >> "$GITHUB_OUTPUT"
+
+      - name: Upload deployment backup
+        if: steps.backup.outputs.archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.backup.outputs.archive }}
+          path: ${{ steps.backup.outputs.archive }}
+
+      # 6. Deploy incremental ke Hostinger via FTP
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          # Alamat server FTP/SSH dari secret
           server: ${{ secrets.FTP_SERVER }}
-          # Username FTP dari secret
           username: ${{ secrets.FTP_USERNAME }}
-          # Password FTP dari secret
           password: ${{ secrets.FTP_PASSWORD }}
-          # Folder hasil build yang akan di-upload
           local-dir: ./out/
-          # Folder tujuan di hosting
           server-dir: public_html/rajafreezdriedfood.com/
-          # Hapus semua file lama sebelum upload (fix untuk error _next folder)
-          dangerous-clean-slate: true
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+          state-name: ftp-deploy-sync.json
